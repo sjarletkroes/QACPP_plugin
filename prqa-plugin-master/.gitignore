@@ -1,0 +1,5 @@
+target/*
+work/*
+*.log
+*.class
+*.stapler
