@@ -129,14 +129,14 @@ public abstract class PRQAGraph implements Serializable {
 
         legend.setPosition(RectangleEdge.BOTTOM);
 
-        chart.setBackgroundPaint(Color.white);
+        chart.setBackgroundPaint(Color.GREEN);
 
         final CategoryPlot plot = chart.getCategoryPlot();
 
-        plot.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(Color.CYAN);
         plot.setOutlinePaint(null);
         plot.setRangeGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.black);
+        plot.setRangeGridlinePaint(Color.CYAN);
 
         CategoryAxis domainAxis = new ShiftedCategoryAxis(null);
         plot.setDomainAxis(domainAxis);

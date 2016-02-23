@@ -99,17 +99,22 @@
         </developer>
     </developers>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.programmingresearch</groupId>
-            <artifactId>prqa</artifactId>
-            <version>2.0.11</version>
-        </dependency>
-    </dependencies>
-
     <scm>
         <connection>scm:git:ssh://github.com/sjarletkroes/QACPP_plugin.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/sjarletkroes/QACPP_plugin.git</developerConnection>
         <url>https://github.com/sjarletkroes/QACPP_plugin</url>
     </scm>
+    <dependencies>
+        <dependency>
+            <groupId>net.praqma</groupId>
+            <artifactId>prqa</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.programmingresearch</groupId>
+            <artifactId>prqa</artifactId>
+            <version>2.0.11</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

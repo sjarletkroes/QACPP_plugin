@@ -53,7 +53,7 @@ import net.praqma.prqa.PRQAContext;
 import net.praqma.prqa.PRQAContext.QARReportType;
 import net.praqma.prqa.PRQAReading;
 import net.praqma.prqa.PRQAReportSettings;
-import net.praqma.prqa.PRQAToolUploadSettings;
+import net.praqma.prqa.PRQAUploadSettings;
 import net.praqma.prqa.QAVerifyServerSettings;
 import net.praqma.prqa.QaFrameworkVersion;
 import net.praqma.prqa.ReportSettings;
@@ -443,10 +443,7 @@ public class PRQANotifier extends Publisher {
                     && prqaReportPRQAToolSource.fileProjectSource instanceof PRQAReportFileListSource) {
                 PRQAReportFileListSource flSource = (PRQAReportFileListSource) prqaReportPRQAToolSource.fileProjectSource;
 
-                settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer, flSource.fileList,
-                        prqaReportPRQAToolSource.performCrossModuleAnalysis, prqaReportPRQAToolSource.publishToQAV,
-                        prqaReportPRQAToolSource.enableDependencyMode, prqaReportPRQAToolSource.enableDataFlowAnalysis,
-                        chosenReportTypes, productUsed);
+                settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer, flSource.fileList, prqaReportPRQAToolSource.performCrossModuleAnalysis, prqaReportPRQAToolSource.publishToQAV, prqaReportPRQAToolSource.enableDependencyMode, prqaReportPRQAToolSource.enableDataFlowAnalysis, chosenReportTypes, productUsed, flSource.settingsFile);
                 qar = new QAR(productUsed, flSource.fileList, QARReportType.Compliance);
 
             } else {
@@ -459,9 +456,15 @@ public class PRQANotifier extends Publisher {
             }
 
             outStream.println(Messages.PRQANotifier_ReportGenerateText());
+            
+            // QAR project file or file list:	DetectorApp\QACPP_PICS2_Working.prj
+            // QAR selected product:		QA·C++
+            // QAR selected report type:	Compliance
             outStream.println(qar);
 
-            PRQAToolUploadSettings uploadSettings = new PRQAToolUploadSettings(prqaReportPRQAToolSource.vcsConfigXml,
+outStream.println("____________________________________test 1____________________________________");
+
+            PRQAUploadSettings uploadSettings = new PRQAUploadSettings(prqaReportPRQAToolSource.vcsConfigXml,
                     prqaReportPRQAToolSource.singleSnapshotMode, prqaReportPRQAToolSource.codeUploadSetting,
                     prqaReportPRQAToolSource.sourceOrigin, prqaReportPRQAToolSource.qaVerifyProjectName);
 
@@ -478,6 +481,8 @@ public class PRQANotifier extends Publisher {
             outStream.println("workspace location " + build.getWorkspace().getRemote());
             boolean success = true;
             PRQAComplianceStatus currentBuild = null;
+            
+outStream.println("____________________________________test 2____________________________________");
 
             try {
 
@@ -499,6 +504,8 @@ public class PRQANotifier extends Publisher {
                                     .isUnix()));
                     outStream.println("QA·C++ OK - " + qacppVersion);
                 }
+            
+outStream.println("____________________________________test 3____________________________________");
 
                 String qawVersion = build.getWorkspace().act(
                         new PRQARemoteToolCheck(new QAW(), environment, appSettings, settings, listener, launcher
@@ -508,17 +515,27 @@ public class PRQANotifier extends Publisher {
                 String qarVersion = build.getWorkspace().act(
                         new PRQARemoteToolCheck(qar, environment, appSettings, settings, listener, launcher.isUnix()));
                 outStream.println("QAR OK - " + qarVersion);
+            
+outStream.println("____________________________________test 4____________________________________");
 
                 currentBuild = build.getWorkspace().act(new PRQARemoteReport(report, listener, launcher.isUnix()));
+outStream.println("____________________________________test 4.1____________________________________");
                 currentBuild.setMessagesWithinThreshold(currentBuild.getMessageCount(threshholdlevel));
             } catch (IOException ex) {
+outStream.println("____________________________________test 4.2____________________________________");
                 success = treatIOException(ex);
                 return success;
             } catch (PrqaException pex) {
-                outStream.println(pex.getMessage());
+                
+outStream.println("____________________________________test 5____________________________________");
+
+                outStream.println(pex.getMessage());       
                 log.log(Level.WARNING, "PrqaException", pex);
                 return false;
             } catch (Exception ex) {
+                
+outStream.println("____________________________________test 6____________________________________");
+
                 outStream.println(Messages.PRQANotifier_FailedGettingResults());
                 outStream.println("This should not be happinging, writing error to log");
                 log.log(Level.SEVERE, "Unhandled exception", ex);
@@ -526,16 +543,23 @@ public class PRQANotifier extends Publisher {
             } finally {
                 try {
                     if (success) {
+                
+outStream.println("____________________________________test 7____________________________________");
+
                         copyReportsToArtifactsDir(settings, build);
+outStream.println("____________________________________test 7.1__________________________________");
                     }
                     if (prqaReportPRQAToolSource.publishToQAV && success) {
                         copyReourcesToArtifactsDir("*.log", build);
+outStream.println("____________________________________test 7.2__________________________________");
                     }
                 } catch (Exception ex) {
                     outStream.println("Error in copying artifacts to artifact dir");
                     log.log(Level.SEVERE, "Failed copying build artifacts", ex);
                 }
             }
+            
+outStream.println("____________________________________test 8____________________________________");
 
             Tuple<PRQAReading, AbstractBuild<?, ?>> previousBuildResultTuple = getPreviousReading(build, Result.SUCCESS);
 
@@ -546,6 +570,8 @@ public class PRQANotifier extends Publisher {
             } else {
                 outStream.println(Messages.PRQANotifier_NoPreviousResults());
             }
+            
+outStream.println("____________________________________test 9____________________________________");
 
             PRQAReading previousBuildResult = previousBuildResultTuple != null ? previousBuildResultTuple.getFirst()
                     : null;
@@ -564,9 +590,16 @@ public class PRQANotifier extends Publisher {
                 outStream.println("Report generation ok. Caught exception evaluation results. Trace written to log");
                 log.log(Level.SEVERE, "Storing unexpected result evalution exception", ex);
             }
+            
+outStream.println("____________________________________test 10___________________________________");
 
             outStream.println(Messages.PRQANotifier_ScannedValues());
+            
+outStream.println("____________________________________test 11___________________________________");
+
             outStream.println(currentBuild);
+            
+outStream.println("____________________________________test 12___________________________________");
 
             PRQABuildAction action = new PRQABuildAction(build);
             action.setResult(currentBuild);
@@ -914,6 +947,9 @@ public class PRQANotifier extends Publisher {
             }
             remoteReport.setQaFrameworkVersion(qaFrameworkVersion);
             currentBuild = build.getWorkspace().act(remoteReport);
+            
+outStream.println("____________________________________test 13____________________________________");
+
             currentBuild.setMessagesWithinThresholdForEachMessageGroup(threshholdlevel);
         } catch (IOException ex) {
             success = false;

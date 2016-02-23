@@ -276,7 +276,7 @@ public class PRQARemoteToolCheck implements FileCallable<String> {
             if (product instanceof QAC || product instanceof QACpp) {
                 _checkBinaryMatch(envExpanded, product);
             }
-            return product.getProductVersion(envExpanded, f, isUnix);
+            return product.getProductVersion((HashMap<String, String>) envExpanded, f, isUnix);
         } catch (PrqaSetupException setupException) {
             throw new IOException("Tool misconfiguration detected", setupException);
         }
