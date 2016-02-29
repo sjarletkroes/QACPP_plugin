@@ -28,13 +28,15 @@ import hudson.model.BuildListener;
 import hudson.remoting.VirtualChannel;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.praqma.prqa.exceptions.PrqaException;
 import net.praqma.prqa.PRQAApplicationSettings;
 import net.praqma.prqa.PRQAReportSettings;
 import net.praqma.prqa.reports.PRQAReport;
-import net.praqma.prqa.status.PRQAComplianceStatus;
+import net.praqma.prqa.status.PRQAStatus;
 import net.praqma.util.execute.CmdResult;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.remoting.RoleChecker;
@@ -43,7 +45,7 @@ import org.jenkinsci.remoting.RoleChecker;
  *
  * @author Praqma
  */
-public class PRQARemoteReport implements FileCallable<PRQAComplianceStatus> {
+public class PRQARemoteReport implements FileCallable<List<PRQAStatus>> {
 
     private static final long serialVersionUID = 1L;
 
@@ -112,7 +114,7 @@ public class PRQARemoteReport implements FileCallable<PRQAComplianceStatus> {
     }
 
     @Override
-    public PRQAComplianceStatus invoke(File f, VirtualChannel channel) throws IOException, InterruptedException {
+    public List<PRQAStatus> invoke(File f, VirtualChannel channel) throws IOException, InterruptedException {
         try {
 
             HashMap<String, String> expandedEnvironment = expandEnvironment(report.getEnvironment(), report.getAppSettings(), report.getSettings());
@@ -126,23 +128,37 @@ public class PRQARemoteReport implements FileCallable<PRQAComplianceStatus> {
              *
              * We skip the analysis phase
              */
+listener.getLogger().println("################################### 1 ##################################");
             if (!StringUtils.isBlank(report.getSettings().projectFile)) {
                 listener.getLogger().println("Analysis command:");
                 listener.getLogger().println(report.createAnalysisCommand(isUnix));
                 report.analyze(isUnix);
             }
+listener.getLogger().println("################################### 2 ##################################");
 
             listener.getLogger().println("Report command:");
             listener.getLogger().println(report.createReportCommand(isUnix));
             report.report(isUnix);
 
+listener.getLogger().println("################################### 3 ##################################");
             if (!StringUtils.isBlank(report.createUploadCommand())) {
                 listener.getLogger().println("Uploading with command:");
                 listener.getLogger().println(report.createUploadCommand());
                 CmdResult uploadResult = report.upload();
             }
 
-            return report.getComplianceStatus();
+            List<PRQAStatus> statusList = new ArrayList();
+                
+listener.getLogger().println("################################### 4 ##################################");
+            
+            statusList.add(0, report.getComplianceStatus());
+listener.getLogger().println("###ComplianceStatus : " + statusList + "###");
+listener.getLogger().println("################################### 5 ##################################");
+            statusList.add(1, report.getQualityStatus());
+listener.getLogger().println("###QualityStatus : " + statusList + "###");
+//listener.getLogger().println(statusList.get(1).toString());
+            
+            return statusList;
         } catch (PrqaException exception) {
             throw new IOException(exception.getMessage(), exception);
         }

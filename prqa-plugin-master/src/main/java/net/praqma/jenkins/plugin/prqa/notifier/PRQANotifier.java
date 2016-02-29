@@ -84,6 +84,8 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 
 import com.google.common.base.Strings;
+import net.praqma.prqa.status.PRQAQualityStatus;
+import net.praqma.prqa.status.PRQAStatus;
 
 //TODO: I intend to REMOVE all the deprecated fields in the realease for the new PRQA API
 public class PRQANotifier extends Publisher {
@@ -480,7 +482,9 @@ outStream.println("____________________________________test 1___________________
             }
             outStream.println("workspace location " + build.getWorkspace().getRemote());
             boolean success = true;
-            PRQAComplianceStatus currentBuild = null;
+            List<PRQAStatus> currentBuild = null;
+            PRQAComplianceStatus currentBuildCompliance = null;
+            PRQAQualityStatus currentBuildQuality = null;
             
 outStream.println("____________________________________test 2____________________________________");
 
@@ -519,8 +523,10 @@ outStream.println("____________________________________test 3___________________
 outStream.println("____________________________________test 4____________________________________");
 
                 currentBuild = build.getWorkspace().act(new PRQARemoteReport(report, listener, launcher.isUnix()));
+                currentBuildCompliance = (PRQAComplianceStatus) currentBuild.get(0);
+                currentBuildQuality = (PRQAQualityStatus) currentBuild.get(1);
 outStream.println("____________________________________test 4.1____________________________________");
-                currentBuild.setMessagesWithinThreshold(currentBuild.getMessageCount(threshholdlevel));
+                currentBuildCompliance.setMessagesWithinThreshold(currentBuildCompliance.getMessageCount(threshholdlevel));
             } catch (IOException ex) {
 outStream.println("____________________________________test 4.2____________________________________");
                 success = treatIOException(ex);
@@ -584,7 +590,7 @@ outStream.println("____________________________________test 9___________________
             }
 
             try {
-                buildStatus = evaluate(previousBuildResult, thresholdsDesc, currentBuild);
+                buildStatus = evaluate(previousBuildResult, thresholdsDesc, currentBuildCompliance);
                 log.fine("Evaluated to: " + buildStatus);
             } catch (Exception ex) {
                 outStream.println("Report generation ok. Caught exception evaluation results. Trace written to log");
@@ -597,17 +603,22 @@ outStream.println("____________________________________test 10__________________
             
 outStream.println("____________________________________test 11___________________________________");
 
-            outStream.println(currentBuild);
+            outStream.println(currentBuildCompliance);
+            outStream.println(currentBuildQuality);
             
 outStream.println("____________________________________test 12___________________________________");
 
-            PRQABuildAction action = new PRQABuildAction(build);
-            action.setResult(currentBuild);
-            action.setPublisher(this);
+            PRQABuildAction actionCompliance = new PRQABuildAction(build);
+            actionCompliance.setResult(currentBuildCompliance);
+            PRQABuildAction actionQuality = new PRQABuildAction(build);
+            actionQuality.setResult(currentBuildQuality);
+            actionCompliance.setPublisher(this);
+            actionQuality.setPublisher(this);
             if (!buildStatus) {
                 build.setResult(Result.UNSTABLE);
             }
-            build.getActions().add(action);
+            build.addAction(actionCompliance);
+            build.addAction(actionQuality);
             return true;
 
         }

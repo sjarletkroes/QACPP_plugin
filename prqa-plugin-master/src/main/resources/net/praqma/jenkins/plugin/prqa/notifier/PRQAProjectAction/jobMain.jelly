@@ -13,5 +13,7 @@
 	            		</j:otherwise> 
 	        		</j:choose>        
 	    	</ul>
-	    ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()}         
+            <j:set var="latestAction" value="${from.getBuildActionStatus(PRQAComplianceStatus.class)}"/>
+	    ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()} 
+            ${latestAction.toHtml()}    
 </j:jelly>
