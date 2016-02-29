@@ -36,17 +36,6 @@ public abstract class ReportHtmlParser implements Serializable {
     public ReportHtmlParser(String fullReportPath) {
         this.fullReportPath = fullReportPath;
     }
-    
-
-    /**
-     * *
-     * Parse method. Takes a path to a file, and a pattern for which to scan for.
-     *
-     * @param path
-     * @param pattern
-     * @return
-     * @throws PrqaException
-     */
 
     public String getFullReportPath() {
         logger.finest(String.format("Returning value: %s", this.fullReportPath));
@@ -65,7 +54,18 @@ public abstract class ReportHtmlParser implements Serializable {
         logger.finest(String.format("Returning value: %s", output));
         return output;
     }
-
+    
+    /**
+     * *
+     * Parse method. Takes a path to a file, and a pattern for which to scan for.
+     *
+     * @param path
+     * @param pattern
+     * @return
+     * @throws net.praqma.prqa.exceptions.PrqaParserException
+     * @throws PrqaException
+     */
+    
     public List<String> parse(String path, Pattern pattern) throws PrqaParserException {
         logger.finest(String.format("Starting execution of method - parse"));
 

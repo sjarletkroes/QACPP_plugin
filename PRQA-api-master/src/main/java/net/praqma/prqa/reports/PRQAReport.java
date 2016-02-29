@@ -18,9 +18,11 @@ import net.praqma.prqa.QAVerifyServerSettings;
 import net.praqma.prqa.exceptions.PrqaException;
 import net.praqma.prqa.exceptions.PrqaUploadException;
 import net.praqma.prqa.parsers.ComplianceReportHtmlParser;
+import net.praqma.prqa.parsers.QualityReportHtmlParser;
 import net.praqma.prqa.products.PRQACommandBuilder;
 import net.praqma.prqa.products.QAV;
 import net.praqma.prqa.status.PRQAComplianceStatus;
+import net.praqma.prqa.status.PRQAQualityStatus;
 import net.praqma.util.execute.AbnormalProcessTerminationException;
 import net.praqma.util.execute.CmdResult;
 import net.praqma.util.execute.CommandLine;
@@ -289,6 +291,43 @@ public class PRQAReport implements Serializable {
                
         return status;
     }           
+    
+    public PRQAQualityStatus getQualityStatus() throws PrqaException {                        
+        QualityReportHtmlParser parser = new QualityReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Quality Report.xhtml");
+        PRQAQualityStatus status = new PRQAQualityStatus();
+        Double numberOfFiles = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberFilesPattern));
+        Double linesOfCode = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern));
+        Double functions =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFunctionsPattern));
+        Double classes =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfClassesPattern));
+        Double functionMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFunctionMetricsPattern));
+        Double classMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfClassMetricsPattern));
+        Double fileMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFileMetricsPattern));
+                
+        for(int i=0; i<5; i++) {
+            try {
+                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.fileDetails[i]));
+                status.getFileDetails().put(i, result);
+                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.classDetails[i]));
+                status.getClassDetails().put(i, result);
+                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.functionDetails[i]));
+                status.getFunctionDetails().put(i, result);
+            } catch (NumberFormatException nfe) {
+                status.getFileDetails().put(i, 0);
+                status.getClassDetails().put(i, 0);
+                status.getFunctionDetails().put(i, 0);
+            }
+        }
+        
+        status.setNumberOfFiles(numberOfFiles);
+        status.setLinesOfCode(linesOfCode);
+        status.setNumberOfFunctions(functions);
+        status.setNumberOfClasses(classes);
+        status.setNumberOfFunctionMetrics(functionMetrics);
+        status.setNumberOfClassMetrics(classMetrics);
+        status.setNumberOfFileMetrics(fileMetrics);
+               
+        return status;
+    }          
 
     /**
      * @return the workspace
