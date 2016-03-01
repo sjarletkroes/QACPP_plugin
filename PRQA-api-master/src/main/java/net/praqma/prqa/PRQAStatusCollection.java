@@ -56,9 +56,7 @@ public class PRQAStatusCollection extends ArrayList<PRQAReading> {
 
 		if (getOverriddenMax(category) != null) {
 			Number output = getOverriddenMax(category);
-
 			logger.finest(String.format("Returning overridden max for StatusCategory %s, value: %s", category, output));
-
 			return output;
 		}
 
@@ -72,7 +70,6 @@ public class PRQAStatusCollection extends ArrayList<PRQAReading> {
 				tmp = s.getReadout(category) == null ? 0 : s.getReadout(category).intValue();
 			} catch (PrqaException iex) {
 				logger.severe(String.format("Exception thrown type: %s; message: %s", iex.getClass(), iex.getMessage()));
-
 				throw iex;
 			}
 
@@ -80,7 +77,6 @@ public class PRQAStatusCollection extends ArrayList<PRQAReading> {
 				max = tmp;
 			}
 		}
-
 		logger.finest(String.format("Returning max from StatusCategory %s, value: %s", category, max));
 
 		return max;
