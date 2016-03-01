@@ -464,8 +464,6 @@ public class PRQANotifier extends Publisher {
             // QAR selected report type:	Compliance
             outStream.println(qar);
 
-outStream.println("____________________________________test 1____________________________________");
-
             PRQAUploadSettings uploadSettings = new PRQAUploadSettings(prqaReportPRQAToolSource.vcsConfigXml,
                     prqaReportPRQAToolSource.singleSnapshotMode, prqaReportPRQAToolSource.codeUploadSetting,
                     prqaReportPRQAToolSource.sourceOrigin, prqaReportPRQAToolSource.qaVerifyProjectName);
@@ -485,8 +483,6 @@ outStream.println("____________________________________test 1___________________
             List<PRQAStatus> currentBuild = null;
             PRQAComplianceStatus currentBuildCompliance = null;
             PRQAQualityStatus currentBuildQuality = null;
-            
-outStream.println("____________________________________test 2____________________________________");
 
             try {
 
@@ -495,7 +491,8 @@ outStream.println("____________________________________test 2___________________
                             "The job uses a product configuration (%s) that no longer exists, please reconfigure.",
                             productUsed));
                 }
-
+                
+                //QA·C++ OK - QAC++ Deep Flow Static Analyser 3.1.0.39077 Sep 11 2013 for Windows 32-bit
                 PRQAReport report = new PRQAReport(settings, qavSettings, uploadSettings, appSettings, environment);
                 if (productUsed.equalsIgnoreCase("qac")) {
                     String qacVersion = build.getWorkspace().act(
@@ -508,39 +505,42 @@ outStream.println("____________________________________test 2___________________
                                     .isUnix()));
                     outStream.println("QA·C++ OK - " + qacppVersion);
                 }
-            
-outStream.println("____________________________________test 3____________________________________");
 
+                //QAW OK - qaw version 2.3.2
                 String qawVersion = build.getWorkspace().act(
                         new PRQARemoteToolCheck(new QAW(), environment, appSettings, settings, listener, launcher
                                 .isUnix()));
                 outStream.println("QAW OK - " + qawVersion);
 
+                //QAR OK - Version 2.1
                 String qarVersion = build.getWorkspace().act(
                         new PRQARemoteToolCheck(qar, environment, appSettings, settings, listener, launcher.isUnix()));
                 outStream.println("QAR OK - " + qarVersion);
             
-outStream.println("____________________________________test 4____________________________________");
+outStream.println("____________________________________test 1____________________________________");
 
+                //PRQAStatus created
                 currentBuild = build.getWorkspace().act(new PRQARemoteReport(report, listener, launcher.isUnix()));
+                //Get the PRQAComplianceStatus part
                 currentBuildCompliance = (PRQAComplianceStatus) currentBuild.get(0);
+                //Get the PRQAQualityStatus part
                 currentBuildQuality = (PRQAQualityStatus) currentBuild.get(1);
-outStream.println("____________________________________test 4.1____________________________________");
+                
                 currentBuildCompliance.setMessagesWithinThreshold(currentBuildCompliance.getMessageCount(threshholdlevel));
             } catch (IOException ex) {
-outStream.println("____________________________________test 4.2____________________________________");
+outStream.println("____________________________________test 2_____________IOException____________");
                 success = treatIOException(ex);
                 return success;
             } catch (PrqaException pex) {
                 
-outStream.println("____________________________________test 5____________________________________");
+outStream.println("____________________________________test 3_____________PrqaException__________");
 
                 outStream.println(pex.getMessage());       
                 log.log(Level.WARNING, "PrqaException", pex);
                 return false;
             } catch (Exception ex) {
                 
-outStream.println("____________________________________test 6____________________________________");
+outStream.println("____________________________________test 4______________Exception_____________");
 
                 outStream.println(Messages.PRQANotifier_FailedGettingResults());
                 outStream.println("This should not be happinging, writing error to log");
@@ -550,14 +550,14 @@ outStream.println("____________________________________test 6___________________
                 try {
                     if (success) {
                 
-outStream.println("____________________________________test 7____________________________________");
+outStream.println("____________________________________test 5____________________________________");
 
                         copyReportsToArtifactsDir(settings, build);
-outStream.println("____________________________________test 7.1__________________________________");
-                    }
-                    if (prqaReportPRQAToolSource.publishToQAV && success) {
-                        copyReourcesToArtifactsDir("*.log", build);
-outStream.println("____________________________________test 7.2__________________________________");
+outStream.println("____________________________________test 6____________________________________");
+                        if (prqaReportPRQAToolSource.publishToQAV) {
+                            copyReourcesToArtifactsDir("*.log", build);
+outStream.println("____________________________________test 7____________publishToQAV____________");
+                        }
                     }
                 } catch (Exception ex) {
                     outStream.println("Error in copying artifacts to artifact dir");
@@ -565,15 +565,20 @@ outStream.println("____________________________________test 7.2_________________
                 }
             }
             
-outStream.println("____________________________________test 8____________________________________");
+outStream.println("____________________________________test 8_________getPreviousReading_________");
 
+            //Get the previous build results
             Tuple<PRQAReading, AbstractBuild<?, ?>> previousBuildResultTuple = getPreviousReading(build, Result.SUCCESS);
 
             if (previousBuildResultTuple != null) {
+outStream.println("_______________________________PRQANotifier_PreviousResultBuildNumber_________");
+                //Previous result (build number xx)
                 outStream.println(String.format(Messages.PRQANotifier_PreviousResultBuildNumber(new Integer(
                         previousBuildResultTuple.getSecond().number))));
+outStream.println("_______________________________getFirst_______________________________________");
                 outStream.println(previousBuildResultTuple.getFirst());
             } else {
+outStream.println("_______________________________PRQANotifier_NoPreviousResults_________________");
                 outStream.println(Messages.PRQANotifier_NoPreviousResults());
             }
             
@@ -583,16 +588,20 @@ outStream.println("____________________________________test 9___________________
                     : null;
 
             boolean buildStatus = true;
+outStream.println("____________________________________test 9.1__________________________________");
 
             log.fine("thresholdsDesc is null: " + (thresholdsDesc == null));
             if (thresholdsDesc != null) {
+outStream.println("____________________________________test 9.2__________________________________");
                 log.fine("thresholdsDescSize: " + thresholdsDesc.size());
             }
 
             try {
+outStream.println("____________________________________test 9.3__________________________________");
                 buildStatus = evaluate(previousBuildResult, thresholdsDesc, currentBuildCompliance);
                 log.fine("Evaluated to: " + buildStatus);
             } catch (Exception ex) {
+outStream.println("____________________________________test 9.4__________________________________");
                 outStream.println("Report generation ok. Caught exception evaluation results. Trace written to log");
                 log.log(Level.SEVERE, "Storing unexpected result evalution exception", ex);
             }

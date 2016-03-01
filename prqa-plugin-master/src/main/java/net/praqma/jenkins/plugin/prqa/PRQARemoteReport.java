@@ -152,11 +152,8 @@ listener.getLogger().println("################################### 3 ############
 listener.getLogger().println("################################### 4 ##################################");
             
             statusList.add(0, report.getComplianceStatus());
-listener.getLogger().println("###ComplianceStatus : " + statusList + "###");
 listener.getLogger().println("################################### 5 ##################################");
             statusList.add(1, report.getQualityStatus());
-listener.getLogger().println("###QualityStatus : " + statusList + "###");
-//listener.getLogger().println(statusList.get(1).toString());
             
             return statusList;
         } catch (PrqaException exception) {
