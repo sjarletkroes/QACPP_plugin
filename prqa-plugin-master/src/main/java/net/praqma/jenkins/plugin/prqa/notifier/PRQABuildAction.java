@@ -67,9 +67,19 @@ public class PRQABuildAction implements Action {
         return this.result;
     }
 
+    /**
+     * 
+     * @param cat
+     * @return
+     */
     public Number getThreshold(StatusCategory cat) {
-        if (this.result != null && this.result.getThresholds().containsKey(cat)) {
-            return result.getThresholds().get(cat);
+        if (this.result != null) {
+            if (this.result.getClass() == PRQAComplianceStatus.class) {
+                PRQAComplianceStatus res = (PRQAComplianceStatus) this.result;
+                if(res.getThresholds().containsKey(cat)) {
+                    return res.getThresholds().get(cat);
+                }
+            }
         }
         return null;
     }
@@ -226,7 +236,7 @@ public class PRQABuildAction implements Action {
                     for (StatusCategory cat : graph.getCategories()) {
                         Number res = null;
                         try {
-                            if(stat.getClass() == PRQAComplianceStatus.class) {
+                            //if(stat.getClass() == PRQAComplianceStatus.class) {
                                 PRQAComplianceStatus cs = (PRQAComplianceStatus) stat;
                                 if (cat.equals(StatusCategory.Messages)) {
     //                                res = cs.getMessageCount(tSetting);
@@ -234,9 +244,8 @@ public class PRQABuildAction implements Action {
                                 } else {
                                     res = stat.getReadout(cat);
                                 }
-                            }
+                            //}
                         } catch (PrqaException ex) {
-                System.out.println("AYAYAYAYAYA !!!!!!!!!!!! This should not be happening !!!!!!!!!!");
                             continue;
                         }
 

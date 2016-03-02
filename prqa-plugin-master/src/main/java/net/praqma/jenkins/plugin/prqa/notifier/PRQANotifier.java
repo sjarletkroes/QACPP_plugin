@@ -480,9 +480,7 @@ public class PRQANotifier extends Publisher {
             }
             outStream.println("workspace location " + build.getWorkspace().getRemote());
             boolean success = true;
-            List<PRQAStatus> currentBuild = null;
-            PRQAComplianceStatus currentBuildCompliance = null;
-            PRQAQualityStatus currentBuildQuality = null;
+            PRQAComplianceStatus currentBuild = null;
 
             try {
 
@@ -521,12 +519,8 @@ outStream.println("____________________________________test 1___________________
 
                 //PRQAStatus created
                 currentBuild = build.getWorkspace().act(new PRQARemoteReport(report, listener, launcher.isUnix()));
-                //Get the PRQAComplianceStatus part
-                currentBuildCompliance = (PRQAComplianceStatus) currentBuild.get(0);
-                //Get the PRQAQualityStatus part
-                currentBuildQuality = (PRQAQualityStatus) currentBuild.get(1);
                 
-                currentBuildCompliance.setMessagesWithinThreshold(currentBuildCompliance.getMessageCount(threshholdlevel));
+                currentBuild.setMessagesWithinThreshold(currentBuild.getMessageCount(threshholdlevel));
             } catch (IOException ex) {
 outStream.println("____________________________________test 2_____________IOException____________");
                 success = treatIOException(ex);
@@ -598,7 +592,7 @@ outStream.println("____________________________________test 9.2_________________
 
             try {
 outStream.println("____________________________________test 9.3__________________________________");
-                buildStatus = evaluate(previousBuildResult, thresholdsDesc, currentBuildCompliance);
+                buildStatus = evaluate(previousBuildResult, thresholdsDesc, currentBuild);
                 log.fine("Evaluated to: " + buildStatus);
             } catch (Exception ex) {
 outStream.println("____________________________________test 9.4__________________________________");
@@ -612,22 +606,17 @@ outStream.println("____________________________________test 10__________________
             
 outStream.println("____________________________________test 11___________________________________");
 
-            outStream.println(currentBuildCompliance);
-            outStream.println(currentBuildQuality);
+            outStream.println(currentBuild);
             
 outStream.println("____________________________________test 12___________________________________");
 
-            PRQABuildAction actionCompliance = new PRQABuildAction(build);
-            actionCompliance.setResult(currentBuildCompliance);
-            PRQABuildAction actionQuality = new PRQABuildAction(build);
-            actionQuality.setResult(currentBuildQuality);
-            actionCompliance.setPublisher(this);
-            actionQuality.setPublisher(this);
+            PRQABuildAction action = new PRQABuildAction(build);
+            action.setResult(currentBuild);
+            action.setPublisher(this);
             if (!buildStatus) {
                 build.setResult(Result.UNSTABLE);
             }
-            build.addAction(actionCompliance);
-            build.addAction(actionQuality);
+            build.addAction(action);
             return true;
 
         }
