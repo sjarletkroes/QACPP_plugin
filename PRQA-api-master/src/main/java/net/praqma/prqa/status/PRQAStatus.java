@@ -46,36 +46,12 @@ public abstract class PRQAStatus implements PRQAReading, Serializable {
         logger.finest(String.format("Ending execution of method - addNotification"));
     }
 
-    @Override
-    public HashMap<StatusCategory, Number> getThresholds() {
-        if(thresholds != null) {
-            logger.finest(String.format("Starting execution of method - getThresholds"));
-            logger.finest(String.format("Returning HashMap<StatusCategory, Number> thresholds:"));
-            for (Entry<StatusCategory, Number> entry : thresholds.entrySet()) {
-                logger.finest(String.format("    StatusCategory: %s, Number: %s", entry.getKey(), entry.getValue()));
-            }
-
-            return thresholds;
-        } else {
-            return new HashMap<StatusCategory, Number>();
-        }
-    }
-
-    @Override
-    public void setThresholds(HashMap<StatusCategory, Number> thresholds) {
-        logger.finest(String.format("Starting execution of method - setThresholds"));
-        logger.finest(String.format("Input parameter thresholds type: %s, values:", thresholds.getClass()));
-        for (Entry<StatusCategory, Number> entry : thresholds.entrySet()) {
-            logger.finest(String.format("    StatusCategory: %s, Number: %s", entry.getKey(), entry.getValue()));
-        }
-
-        this.thresholds = thresholds;
-
-        logger.finest(String.format("Ending execution of method - setThresholds"));
-    }
-
     /**
      * Gets all associated readouts.
+     * 
+     * @param categories
+     * @return 
+     * @throws net.praqma.prqa.exceptions.PrqaException 
      */
     @Override
     public HashMap<StatusCategory, Number> getReadouts(StatusCategory... categories) throws PrqaException {

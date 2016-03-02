@@ -20,8 +20,6 @@ public interface PRQAReading extends Serializable {
     Number getReadout(StatusCategory category) throws PrqaException;
     void setReadout(StatusCategory category, Number value) throws PrqaException;
     void addNotification(String notificaction);
-    HashMap<StatusCategory, Number> getThresholds();
-    void setThresholds(HashMap<StatusCategory, Number> thresholds);
     HashMap<StatusCategory, Number> getReadouts(StatusCategory... categories) throws PrqaException;
 }
 

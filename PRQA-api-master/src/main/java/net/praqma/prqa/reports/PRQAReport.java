@@ -272,6 +272,10 @@ public class PRQAReport implements Serializable {
     public PRQAComplianceStatus getComplianceStatus() throws PrqaException {                        
         ComplianceReportHtmlParser parser = new ComplianceReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Compliance Report.xhtml");
         PRQAComplianceStatus status = new PRQAComplianceStatus();
+        return getCompliance(status, parser);
+    }    
+    
+    private PRQAComplianceStatus getCompliance(PRQAComplianceStatus status, ComplianceReportHtmlParser parser) throws PrqaException {
         Double fileCompliance = Double.parseDouble(parser.getResult(ComplianceReportHtmlParser.fileCompliancePattern));
         Double projectCompliance =  Double.parseDouble(parser.getResult(ComplianceReportHtmlParser.projectCompliancePattern));
         int messages = Integer.parseInt(parser.getResult(ComplianceReportHtmlParser.totalMessagesPattern));                
@@ -290,11 +294,15 @@ public class PRQAReport implements Serializable {
         status.setMessages(messages);
                
         return status;
-    }           
+    }
     
     public PRQAQualityStatus getQualityStatus() throws PrqaException {                        
-        QualityReportHtmlParser parser = new QualityReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Quality Report.xhtml");
         PRQAQualityStatus status = new PRQAQualityStatus();
+        
+        ComplianceReportHtmlParser parserCompliance = new ComplianceReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Compliance Report.xhtml");
+        status = (PRQAQualityStatus) getCompliance(status, parserCompliance);
+        
+        QualityReportHtmlParser parser = new QualityReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Quality Report.xhtml");
         Double numberOfFiles = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberFilesPattern));
         Double linesOfCode = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern));
         Double functions =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFunctionsPattern));
