@@ -236,15 +236,13 @@ public class PRQABuildAction implements Action {
                     for (StatusCategory cat : graph.getCategories()) {
                         Number res = null;
                         try {
-                            //if(stat.getClass() == PRQAComplianceStatus.class) {
-                                PRQAComplianceStatus cs = (PRQAComplianceStatus) stat;
-                                if (cat.equals(StatusCategory.Messages)) {
-    //                                res = cs.getMessageCount(tSetting);
-                                    res = cs.getMessagesWithinThreshold();
-                                } else {
-                                    res = stat.getReadout(cat);
-                                }
-                            //}
+                            PRQAComplianceStatus cs = (PRQAComplianceStatus) stat;
+                            if (cat.equals(StatusCategory.Messages)) {
+//                                res = cs.getMessageCount(tSetting);
+                                res = cs.getMessagesWithinThreshold();
+                            } else {
+                                res = stat.getReadout(cat);
+                            }
                         } catch (PrqaException ex) {
                             continue;
                         }

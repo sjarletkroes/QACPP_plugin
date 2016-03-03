@@ -84,8 +84,8 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 
 import com.google.common.base.Strings;
-import net.praqma.prqa.status.PRQAQualityStatus;
-import net.praqma.prqa.status.PRQAStatus;
+import net.praqma.jenkins.plugin.prqa.graphs.QualityGraph;
+import net.praqma.jenkins.plugin.prqa.threshold.FileQualityThreshold;
 
 //TODO: I intend to REMOVE all the deprecated fields in the realease for the new PRQA API
 public class PRQANotifier extends Publisher {
@@ -151,9 +151,9 @@ public class PRQANotifier extends Publisher {
     /**
      * Process the results
      */
-    private boolean evaluate(PRQAReading previousStabileComplianceStatus, List<? extends AbstractThreshold> thresholds,
+    private boolean evaluate(PRQAReading previousStableComplianceStatus, List<? extends AbstractThreshold> thresholds,
             PRQAComplianceStatus currentComplianceStatus) {
-        PRQAComplianceStatus previousComplianceStatus = (PRQAComplianceStatus) previousStabileComplianceStatus;
+        PRQAComplianceStatus previousComplianceStatus = (PRQAComplianceStatus) previousStableComplianceStatus;
         HashMap<StatusCategory, Number> tholds = new HashMap<StatusCategory, Number>();
         boolean isStable = true;
         if (thresholds == null) {
@@ -175,17 +175,17 @@ public class PRQANotifier extends Publisher {
         return isStable;
     }
 
-    private boolean isBuildStableForContinuousImprovement(AbstractThreshold treshold,
+    private boolean isBuildStableForContinuousImprovement(AbstractThreshold threshold,
             PRQAComplianceStatus currentComplianceStatus, PRQAComplianceStatus previousComplianceStatus) {
         boolean isStable = true;
-        if (treshold instanceof MessageComplianceThreshold) {
+        if (threshold instanceof MessageComplianceThreshold) {
             if (currentComplianceStatus.getMessages() > previousComplianceStatus.getMessages()) {
                 currentComplianceStatus.addNotification(Messages
                         .PRQANotifier_MaxMessagesContinuousImprovementRequirementNotMet(
                                 previousComplianceStatus.getMessages(), currentComplianceStatus.getMessages()));
                 isStable = false;
             }
-        } else if (treshold instanceof FileComplianceThreshold) {
+        } else if (threshold instanceof FileComplianceThreshold) {
             if (currentComplianceStatus.getFileCompliance() < previousComplianceStatus.getFileCompliance()) {
                 currentComplianceStatus.addNotification(Messages
                         .PRQANotifier_FileComplianceContinuousImprovementRequirementNotMet(
@@ -194,7 +194,7 @@ public class PRQANotifier extends Publisher {
                         + "%");
                 isStable = false;
             }
-        } else if (treshold instanceof ProjectComplianceThreshold) {
+        } else if (threshold instanceof ProjectComplianceThreshold) {
             if (currentComplianceStatus.getProjectCompliance() < previousComplianceStatus.getProjectCompliance()) {
                 currentComplianceStatus.addNotification(Messages
                         .PRQANotifier_ProjectComplianceContinuousImprovementRequirementNotMet(
@@ -217,8 +217,10 @@ public class PRQANotifier extends Publisher {
             tholds.put(StatusCategory.ProjectCompliance, ((ProjectComplianceThreshold) threshold).value);
         } else if (threshold instanceof FileComplianceThreshold) {
             tholds.put(StatusCategory.FileCompliance, ((FileComplianceThreshold) threshold).value);
-        } else {
+        } else if (threshold instanceof MessageComplianceThreshold) {
             tholds.put(StatusCategory.Messages, ((MessageComplianceThreshold) threshold).value);
+        } else {
+            tholds.put(StatusCategory.TotalNumberOfFiles, ((FileQualityThreshold) threshold).value);
         }
     }
 
@@ -322,10 +324,13 @@ public class PRQANotifier extends Publisher {
     public List<PRQAGraph> getSupportedGraphs() {
         ArrayList<PRQAGraph> graphs = new ArrayList<PRQAGraph>();
         for (PRQAGraph g : graphTypes) {
-            if (g.getType().equals(QARReportType.Compliance)) {
+            //if (g.getType().equals(QARReportType.Compliance)) {
                 graphs.add(g);
-            }
+            //} else if (g.getType().equals(QARReportType.Quality)) {
+                //graphs.add(g);
+            //}
         }
+        int i = 0;
         return graphs;
     }
 
@@ -772,6 +777,7 @@ outStream.println("____________________________________test 12__________________
                 ArrayList<PRQAGraph> list = new ArrayList<PRQAGraph>();
                 list.add(new ComplianceIndexGraphs());
                 list.add(new MessagesGraph());
+                list.add(new QualityGraph());
                 instance.setGraphTypes(list);
             }
 

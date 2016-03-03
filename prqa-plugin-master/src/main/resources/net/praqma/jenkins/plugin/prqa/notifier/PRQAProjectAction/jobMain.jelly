@@ -14,6 +14,5 @@
 	        		</j:choose>        
 	    	</ul>
             <j:set var="latestAction" value="${from.getBuildActionStatus(PRQAComplianceStatus.class)}"/>
-	    ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()} 
-            ${latestAction.toHtml()}    
+	    ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()}  
 </j:jelly>
