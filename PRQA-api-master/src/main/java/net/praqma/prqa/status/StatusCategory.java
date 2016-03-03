@@ -6,6 +6,9 @@ package net.praqma.prqa.status;
  */
 public enum StatusCategory {
     Messages,
+    FilesBadPoor,
+    FunctionsBadPoor,
+    ClassesBadPoor,
     ProjectCompliance,
     FileCompliance,
     TotalNumberOfFiles,

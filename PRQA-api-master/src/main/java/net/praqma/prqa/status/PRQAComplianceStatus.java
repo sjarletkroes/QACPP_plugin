@@ -123,28 +123,20 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         switch(cat) {
             case ProjectCompliance:
                 output = this.getProjectCompliance();
-                
                 logger.finest(String.format("Returning value: %s", output));
-
                 return output;
             case Messages:
                 output = this.getMessages();
-                
                 logger.finest(String.format("Returning value: %s", output));
-                
                 return output;
             case FileCompliance:
                 output = this.getFileCompliance();
-                
                 logger.finest(String.format("Returning this.getFileCompliance(): %s", this.getFileCompliance()));
-                
                 return output;
             default:
             	PrqaReadingException exception = new PrqaReadingException(String.format("Didn't find category %s for class %s", cat, this.getClass()));
-    			
-    			logger.severe(String.format("Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
-    			
-    			throw exception;
+    		logger.severe(String.format("!!!!!!!!!!!!!!Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
+    		throw exception;
         }
     }   
     
@@ -275,6 +267,9 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
         sb.append("<tbody>");
         sb.append("<tr>");
+        
+        // Table Compliance left
+        
         sb.append("<td width=\"50%\" valign=\"top\">");
         sb.append("<div align=\"center\">");
         sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
@@ -293,10 +288,10 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         sb.append(String.format("<td>%s</td>", this.getMessages()));
         sb.append("<tr style=\"border: 1px solid #BBB\">");
         sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Project Compliance</th>");
-        sb.append(String.format("<td>%s</td>", this.getProjectCompliance()));
+        sb.append(String.format("<td>%s%s</td>", this.getProjectCompliance(), '%'));
         sb.append("<tr style=\"border: 1px solid #BBB\">");
         sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">File Compliance</th>");
-        sb.append(String.format("<td>%s</td>", this.getFileCompliance()));
+        sb.append(String.format("<td>%s%s</td>", this.getFileCompliance(), '%'));
         sb.append("</tr>");
         sb.append("</table>");
         sb.append("</div>");
@@ -305,8 +300,21 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         sb.append("</table>");
         sb.append("</div>");
         sb.append("</td>");
+        
+        // end - Table Compliance left
+        
+        // Graph Compliance right
+        
         sb.append("<td width=\"50%\" valign=\"top\">");
+        sb.append("<div align=\"center\">");
+        sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
+        sb.append("Compliance Levels");
+        sb.append("</div>");
+        sb.append("</div>");
         sb.append("</td>");
+        
+        // end - Graph Compliance right
+        
         sb.append("</tr>");
         sb.append("</tbody>");
         sb.append("</table>");
@@ -315,6 +323,9 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
             sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
             sb.append("<tbody>");
             sb.append("<tr>");
+        
+            // Table Messages left
+        
             sb.append("<td width=\"50%\" valign=\"top\">");
             sb.append("<div align=\"center\">");
             sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
@@ -343,8 +354,21 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
             sb.append("</table>");
             sb.append("</div>");
             sb.append("</td>");
+            
+            // end - Table Messages left
+            
+            // Graph Messages right
+            
             sb.append("<td width=\"50%\" valign=\"top\">");
+            sb.append("<div align=\"center\">");
+            sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
+            sb.append("Messages per Build");
+            sb.append("</div>");
+            sb.append("</div>");
             sb.append("</td>");
+            
+            // end - Graph Messages right
+            
             sb.append("</tr>");
             sb.append("</tbody>");
             sb.append("</table>");

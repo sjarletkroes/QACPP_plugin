@@ -34,13 +34,13 @@ public class QualityReportHtmlParser extends ReportHtmlParser {
     
     static {      
         // General
-        numberFilesPattern = Pattern.compile("<td align=\"left\">Total Number of Files</td>\\r?\\n<td align=\"right\">(\\d*)</td>");  
-        numberLinesOfCodePattern = Pattern.compile("<td align=\"left\">Lines of Code</td>\\r?\\n<td align=\"right\">(\\d*)</td>");  
-        numberOfFileMetricsPattern = Pattern.compile("<td align=\"left\">Number of File Metrics</td>\\r?\\n<td align=\"right\">(\\d*)</td>");    
-        numberOfClassesPattern = Pattern.compile("<td align=\"left\">Number of Classes</td>\\r?\\n<td align=\"right\">(\\d*)</td>");          
-        numberOfClassMetricsPattern = Pattern.compile("<td align=\"left\">Number of Class Metrics</td>\\r?\\n<td align=\"right\">(\\d*)</td>");      
-        numberOfFunctionsPattern = Pattern.compile("<td align=\"left\">Number of Functions</td>\\r?\\n<td align=\"right\">(\\d*)</td>"); 
-        numberOfFunctionMetricsPattern = Pattern.compile("<td align=\"left\">Number of Function Metrics</td>\\r?\\n<td align=\"right\">(\\d*)</td>"); 
+        numberFilesPattern = Pattern.compile("<td align=\"left\">Total Number of Files</td>\\r?\\n<td align=\"right\">([0-9]+)</td>");  
+        numberLinesOfCodePattern = Pattern.compile("<td align=\"left\">Lines of Code</td>\\r?\\n<td align=\"right\">([0-9]+)</td>");  
+        numberOfFileMetricsPattern = Pattern.compile("<td align=\"left\">Number of File Metrics</td>\\r?\\n<td align=\"right\">([0-9]+)</td>");    
+        numberOfClassesPattern = Pattern.compile("<td align=\"left\">Number of Classes</td>\\r?\\n<td align=\"right\">([0-9]+)</td>");          
+        numberOfClassMetricsPattern = Pattern.compile("<td align=\"left\">Number of Class Metrics</td>\\r?\\n<td align=\"right\">([0-9]+)</td>");      
+        numberOfFunctionsPattern = Pattern.compile("<td align=\"left\">Number of Functions</td>\\r?\\n<td align=\"right\">([0-9]+)</td>"); 
+        numberOfFunctionMetricsPattern = Pattern.compile("<td align=\"left\">Number of Function Metrics</td>\\r?\\n<td align=\"right\">([0-9]+)</td>"); 
         
         // File detail
         fileDetails = new Pattern[5];

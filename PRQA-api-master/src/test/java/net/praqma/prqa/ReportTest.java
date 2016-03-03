@@ -16,10 +16,11 @@ public class ReportTest {
     }
     
     @Test public void testConstants() {
-        assertTrue(PRQAContext.QARReportType.values().length == 3);
-        assertTrue(PRQAContext.QARReportType.REQUIRED_TYPES.size() == 1);
+        assertTrue(PRQAContext.QARReportType.values().length == 4);
+        assertTrue(PRQAContext.QARReportType.REQUIRED_TYPES.size() == 2);
         assertTrue(PRQAContext.QARReportType.OPTIONAL_TYPES.size() == 2);
         assertTrue(PRQAContext.QARReportType.REQUIRED_TYPES.contains(PRQAContext.QARReportType.Compliance));
+        assertTrue(PRQAContext.QARReportType.REQUIRED_TYPES.contains(PRQAContext.QARReportType.Quality));
     }
        
 }

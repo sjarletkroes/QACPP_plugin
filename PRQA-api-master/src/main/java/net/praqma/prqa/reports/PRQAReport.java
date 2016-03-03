@@ -5,6 +5,7 @@
 package net.praqma.prqa.reports;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -303,13 +304,13 @@ public class PRQAReport implements Serializable {
         status = (PRQAQualityStatus) getCompliance(status, parserCompliance);
         
         QualityReportHtmlParser parser = new QualityReportHtmlParser(getWorkspace().getPath()+ System.getProperty("file.separator") + "Quality Report.xhtml");
-        Double numberOfFiles = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberFilesPattern));
-        Double linesOfCode = Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern));
-        Double functions =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFunctionsPattern));
-        Double classes =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfClassesPattern));
-        Double functionMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFunctionMetricsPattern));
-        Double classMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfClassMetricsPattern));
-        Double fileMetrics =  Double.parseDouble(parser.getResult(QualityReportHtmlParser.numberOfFileMetricsPattern));
+        int numberOfFiles = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberFilesPattern));
+        int linesOfCode = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern));
+        int functions =  Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFunctionsPattern));
+        int classes =  Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfClassesPattern));
+        int functionMetrics =  Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFunctionMetricsPattern));
+        int classMetrics =  Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfClassMetricsPattern));
+        int fileMetrics =  Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFileMetricsPattern));
                 
         for(int i=0; i<5; i++) {
             try {

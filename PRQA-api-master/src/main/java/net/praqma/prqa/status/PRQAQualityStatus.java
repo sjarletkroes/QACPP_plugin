@@ -17,13 +17,13 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
 
     private final int BAD = 0, POOR = 1, AVERAGE = 2, GOOD = 3, EXCELLENT = 4;
 
-    private Double numberOfFiles;
-    private Double linesOfCode;
-    private Double numberOfFunctions;
-    private Double numberOfClasses;
-    private Double numberOfFunctionMetrics;
-    private Double numberOfClassMetrics;
-    private Double numberOfFileMetrics;
+    private int numberOfFiles;
+    private int linesOfCode;
+    private int numberOfFunctions;
+    private int numberOfClasses;
+    private int numberOfFunctionMetrics;
+    private int numberOfClassMetrics;
+    private int numberOfFileMetrics;
 
     private HashMap<Integer, Integer> fileDetails = new HashMap<Integer, Integer>();
     private HashMap<Integer, Integer> classDetails = new HashMap<Integer, Integer>();
@@ -49,17 +49,17 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         functionDetails.put(EXCELLENT, 0);
     }
 
-    public PRQAQualityStatus(Double numberOfFiles, Double linesOfCode, Double numberOfFunctions, Double numberOfClasses, Double numberOfFunctionMetrics, Double numberOfClassMetrics, Double numberOfFileMetrics, Double numberOfFilesBad) {
+    public PRQAQualityStatus(int numberOfFiles, int linesOfCode, int numberOfFunctions, int numberOfClasses, int numberOfFunctionMetrics, int numberOfClassMetrics, int numberOfFileMetrics, int numberOfFilesBad) {
         super();
         logger.finest(String.format("Constructor called for class PRQAQualityStatus"));
-        logger.finest(String.format("Input parameter numberOfFiles type: %s; value: %s", numberOfFiles.getClass(), numberOfFiles));
-        logger.finest(String.format("Input parameter linesOfCode type: %s; value: %s", linesOfCode.getClass(), linesOfCode));
-        logger.finest(String.format("Input parameter numberOfFunctions type: %s; value: %s", numberOfFunctions.getClass(), numberOfFunctions));
-        logger.finest(String.format("Input parameter numberOfClasses type: %s; value: %s", numberOfClasses.getClass(), numberOfClasses));
-        logger.finest(String.format("Input parameter numberOfFunctionMetrics type: %s; value: %s", numberOfFunctionMetrics.getClass(), numberOfFunctionMetrics));
-        logger.finest(String.format("Input parameter numberOfClassMetrics type: %s; value: %s", numberOfClassMetrics.getClass(), numberOfClassMetrics));
-        logger.finest(String.format("Input parameter numberOfFileMetrics type: %s; value: %s", numberOfFileMetrics.getClass(), numberOfFileMetrics));
-        logger.finest(String.format("Input parameter numberOfFilesBad type: %s; value: %s", numberOfFilesBad.getClass(), numberOfFilesBad));
+        logger.finest(String.format("Input parameter numberOfFiles type: int; value: %s", numberOfFiles));
+        logger.finest(String.format("Input parameter linesOfCode type: int; value: %s", linesOfCode));
+        logger.finest(String.format("Input parameter numberOfFunctions type: int; value: %s", numberOfFunctions));
+        logger.finest(String.format("Input parameter numberOfClasses type: int; value: %s", numberOfClasses));
+        logger.finest(String.format("Input parameter numberOfFunctionMetrics type: int; value: %s", numberOfFunctionMetrics));
+        logger.finest(String.format("Input parameter numberOfClassMetrics type: int; value: %s", numberOfClassMetrics));
+        logger.finest(String.format("Input parameter numberOfFileMetrics type: int; value: %s", numberOfFileMetrics));
+        logger.finest(String.format("Input parameter numberOfFilesBad type: int; value: %s", numberOfFilesBad));
 
         this.numberOfFiles = numberOfFiles;
         this.linesOfCode = linesOfCode;
@@ -72,93 +72,93 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         logger.finest(String.format("Ending execution of constructor - PRQAQualityStatus"));
     }
 
-    public Double getLinesOfCode() {
+    public int getLinesOfCode() {
         logger.finest(String.format("Starting execution of method - getLinesOfCode"));
         logger.finest(String.format("Returning value: %s", linesOfCode));
         return linesOfCode;
     }
 
-    public void setLinesOfCode(Double linesOfCode) {
+    public void setLinesOfCode(int linesOfCode) {
         logger.finest(String.format("Starting execution of method - setLinesOfCode"));
-        logger.finest(String.format("Input parameter linesOfCode type: %s; value: %s", linesOfCode.getClass(), linesOfCode));
+        logger.finest(String.format("Input parameter linesOfCode type: int; value: %s", linesOfCode));
         this.linesOfCode = linesOfCode;
         logger.finest(String.format("Ending execution of method - setLinesOfCode"));
     }
 
-    public Double getNumberOfFunctions() {
+    public int getNumberOfFunctions() {
         logger.finest(String.format("Starting execution of method - getFunctions"));
         logger.finest(String.format("Returning value: %s", numberOfFunctions));
         return numberOfFunctions;
     }
 
-    public void setNumberOfFunctions(Double numberOfFunctions) {
+    public void setNumberOfFunctions(int numberOfFunctions) {
         logger.finest(String.format("Starting execution of method - setFunctions"));
-        logger.finest(String.format("Input parameter functions type: %s; value: %s", numberOfFunctions.getClass(), numberOfFunctions));
+        logger.finest(String.format("Input parameter functions type: int; value: %s", numberOfFunctions));
         this.numberOfFunctions = numberOfFunctions;
         logger.finest(String.format("Ending execution of method - setFunctions"));
     }
 
-    public Double getNumberOfClasses() {
+    public int getNumberOfClasses() {
         logger.finest(String.format("Starting execution of method - getClasses"));
         logger.finest(String.format("Returning value: %s", numberOfClasses));
         return numberOfClasses;
     }
 
-    public void setNumberOfClasses(Double numberOfClasses) {
+    public void setNumberOfClasses(int numberOfClasses) {
         logger.finest(String.format("Starting execution of method - setClasses"));
-        logger.finest(String.format("Input parameter classes type: %s; value: %s", numberOfClasses.getClass(), numberOfClasses));
+        logger.finest(String.format("Input parameter classes type: int; value: %s", numberOfClasses));
         this.numberOfClasses = numberOfClasses;
         logger.finest(String.format("Ending execution of method - setClasses"));
     }
 
-    public Double getNumberOfFunctionMetrics() {
+    public int getNumberOfFunctionMetrics() {
         logger.finest(String.format("Starting execution of method - getFunctionMetrics"));
         logger.finest(String.format("Returning value: %s", numberOfFunctionMetrics));
         return numberOfFunctionMetrics;
     }
 
-    public void setNumberOfFunctionMetrics(Double numberOfFunctionMetrics) {
+    public void setNumberOfFunctionMetrics(int numberOfFunctionMetrics) {
         logger.finest(String.format("Starting execution of method - setFunctionMetrics"));
-        logger.finest(String.format("Input parameter functionMetrics type: %s; value: %s", numberOfFunctionMetrics.getClass(), numberOfFunctionMetrics));
+        logger.finest(String.format("Input parameter functionMetrics type: int; value: %s", numberOfFunctionMetrics));
         this.numberOfFunctionMetrics = numberOfFunctionMetrics;
         logger.finest(String.format("Ending execution of method - setFunctionMetrics"));
     }
 
-    public Double getNumberOfClassMetrics() {
+    public int getNumberOfClassMetrics() {
         logger.finest(String.format("Starting execution of method - getClassMetrics"));
         logger.finest(String.format("Returning value: %s", numberOfClassMetrics));
         return numberOfClassMetrics;
     }
 
-    public void setNumberOfClassMetrics(Double numberOfClassMetrics) {
+    public void setNumberOfClassMetrics(int numberOfClassMetrics) {
         logger.finest(String.format("Starting execution of method - setClassMetrics"));
-        logger.finest(String.format("Input parameter classMetrics type: %s; value: %s", numberOfClassMetrics.getClass(), numberOfClassMetrics));
+        logger.finest(String.format("Input parameter classMetrics type: int; value: %s", numberOfClassMetrics));
         this.numberOfClassMetrics = numberOfClassMetrics;
         logger.finest(String.format("Ending execution of method - setClassMetrics"));
     }
 
-    public Double getNumberOfFileMetrics() {
+    public int getNumberOfFileMetrics() {
         logger.finest(String.format("Starting execution of method - getFileMetrics"));
         logger.finest(String.format("Returning value: %s", numberOfFileMetrics));
         return numberOfFileMetrics;
     }
 
-    public void setNumberOfFileMetrics(Double numberOfFileMetrics) {
+    public void setNumberOfFileMetrics(int numberOfFileMetrics) {
         logger.finest(String.format("Starting execution of method - setFileMetrics"));
-        logger.finest(String.format("Input parameter fileMetrics type: %s; value: %s", numberOfFileMetrics.getClass(), numberOfFileMetrics));
+        logger.finest(String.format("Input parameter fileMetrics type: int; value: %s", numberOfFileMetrics));
         this.numberOfFileMetrics = numberOfFileMetrics;
         logger.finest(String.format("Ending execution of method - setFileMetrics"));
     }
 
-    public Double getNumberOfFiles() {
+    public int getNumberOfFiles() {
         logger.finest(String.format("Starting execution of method - getNumberOfFiles"));
         logger.finest(String.format("Returning value: %s", numberOfFiles));
         return numberOfFiles;
     }
 
-    public void setNumberOfFiles(Double numberOfFiles) {
+    public void setNumberOfFiles(int numberOfFiles) {
         logger.finest(String.format("Starting execution of method - setNumberOfFiles"));
-        logger.finest(String.format("Input parameter files type: %s; value: %s", numberOfFiles.getClass(), numberOfFiles));
+        logger.finest(String.format("Input parameter files type: int; value: %s", numberOfFiles));
         this.numberOfFiles = numberOfFiles;
         logger.finest(String.format("Ending execution of method - setNumberOfFiles"));
     }
@@ -193,11 +193,7 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         logger.finest(String.format("Input parameter cat type: %s; value: %s", cat.getClass(), cat));
 
         Number output = null;
-        
-        try {
-            output = super.getReadout(cat);
-        } catch(Exception e) { }
-        
+                
         switch (cat) {
             case TotalNumberOfFiles:
                 output = this.getNumberOfFiles();
@@ -227,13 +223,29 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
                 output = this.getNumberOfFileMetrics();
                 logger.finest(String.format("Returning value: %s", output));
                 return output;
+            case FilesBadPoor:
+                output = this.getFileDetails().get(POOR) + this.getFileDetails().get(BAD);
+                logger.finest(String.format("Returning value: %s", output));
+                return output;
+            case FunctionsBadPoor:
+                output = this.getFunctionDetails().get(POOR) + this.getFunctionDetails().get(BAD);
+                logger.finest(String.format("Returning value: %s", output));
+                return output;
+            case ClassesBadPoor:
+                output = this.getClassDetails().get(POOR) + this.getClassDetails().get(BAD);
+                logger.finest(String.format("Returning value: %s", output));
+                return output;
             default:
+                try {
+                    output = super.getReadout(cat);
+                } catch(Exception e) { }
                 if (output != null) {
                     return output;
+                } else {
+                    PrqaReadingException exception = new PrqaReadingException(String.format("Didn't find category %s for class %s", cat, this.getClass()));
+                    logger.severe(String.format("#######Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
+                    throw exception;
                 }
-                PrqaReadingException exception = new PrqaReadingException(String.format("Didn't find category %s for class %s", cat, this.getClass()));
-                logger.severe(String.format("#######Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
-                throw exception;
         }
     }
 
@@ -249,50 +261,50 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         
         switch (category) {
             case TotalNumberOfFiles:
-                double nbFiles = value.doubleValue();
+                int nbFiles = value.intValue();
                 logger.finest(String.format("Setting NumberOfFiles to: %s.", nbFiles));
                 this.setNumberOfFiles(nbFiles);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case LinesOfCode:
-                double nbLinesOfCode = value.doubleValue();
+                int nbLinesOfCode = value.intValue();
                 logger.finest(String.format("Setting LinesOfCode to: %s.", nbLinesOfCode));
                 this.setLinesOfCode(nbLinesOfCode);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case NumberOfFunctions:
-                double nbNumberOfFunctions = value.doubleValue();
+                int nbNumberOfFunctions = value.intValue();
                 logger.finest(String.format("Setting NumberOfFunctions to: %s.", nbNumberOfFunctions));
                 this.setLinesOfCode(nbNumberOfFunctions);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case NumberOfClasses:
-                double nbNumberOfClasses = value.doubleValue();
+                int nbNumberOfClasses = value.intValue();
                 logger.finest(String.format("Setting NumberOfClasses to: %s.", nbNumberOfClasses));
                 this.setLinesOfCode(nbNumberOfClasses);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case NumberOfFunctionMetrics:
-                double nbNumberOfFunctionMetrics = value.doubleValue();
+                int nbNumberOfFunctionMetrics = value.intValue();
                 logger.finest(String.format("Setting NumberOfFunctionMetrics to: %s.", nbNumberOfFunctionMetrics));
                 this.setLinesOfCode(nbNumberOfFunctionMetrics);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case NumberOfClassMetrics:
-                double nbNumberOfClassMetrics = value.doubleValue();
+                int nbNumberOfClassMetrics = value.intValue();
                 logger.finest(String.format("Setting NumberOfClassMetrics to: %s.", nbNumberOfClassMetrics));
                 this.setLinesOfCode(nbNumberOfClassMetrics);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             case NumberOfFileMetrics:
-                double nbNumberOfFileMetrics = value.doubleValue();
+                int nbNumberOfFileMetrics = value.intValue();
                 logger.finest(String.format("Setting NumberOfFileMetrics to: %s.", nbNumberOfFileMetrics));
                 this.setLinesOfCode(nbNumberOfFileMetrics);
                 logger.finest(String.format("Ending execution of method - setReadout"));
                 break;
             default:
                 PrqaReadingException exception = new PrqaReadingException(String.format("Could not set value of %s for category %s in class %s", value, category, this.getClass()));
-                logger.severe(String.format("Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
+                logger.severe(String.format("????????Exception thrown type: %s; message: %s", exception.getClass(), exception.getMessage()));
                 throw exception;
         }
     }
@@ -419,9 +431,9 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
     public boolean isValid() {
         logger.finest(String.format("Starting execution of method - isValid"));
 
-        boolean result = super.isValid() && this.numberOfClassMetrics != null && this.numberOfClasses != null
-                && this.numberOfFunctionMetrics != null && this.numberOfFunctions != null
-                && this.numberOfFileMetrics != null && this.linesOfCode != null
+        boolean result = super.isValid() && this.numberOfClassMetrics != 0 && this.numberOfClasses != 0
+                && this.numberOfFunctionMetrics != 0 && this.numberOfFunctions != 0
+                && this.numberOfFileMetrics != 0 && this.linesOfCode != 0
                 && this.fileDetails != null && this.functionDetails != null && this.classDetails != null;
 
         logger.finest(String.format("Returning value: %s", result));
@@ -431,7 +443,7 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
 
     public static PRQAQualityStatus createEmptyResult() {
         logger.finest(String.format("Starting execution of method - createEmptyResult"));
-        PRQAQualityStatus output = new PRQAQualityStatus(new Double(0), new Double(0), new Double(0), new Double(0), new Double(0), new Double(0), new Double(0), new Double(0));
+        PRQAQualityStatus output = new PRQAQualityStatus(0, 0, 0, 0, 0, 0, 0, 0);
         logger.finest(String.format("Returning value: %s", output));
         return output;
     }
@@ -442,6 +454,9 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
         sb.append("<tbody>");
         sb.append("<tr>");
+            
+        // Table General left
+            
         sb.append("<td width=\"50%\" valign=\"top\">");
         sb.append("<div align=\"center\">");
         sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
@@ -472,8 +487,21 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         sb.append("</table>");
         sb.append("</div>");
         sb.append("</td>");
+            
+        // end - Table General left
+            
+        // Graph Lines of Code right
+            
         sb.append("<td width=\"50%\" valign=\"top\">");
+        sb.append("<div align=\"center\">");
+        sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
+        sb.append("Lines of Code");
+        sb.append("</div>");
+        sb.append("</div>");
         sb.append("</td>");
+            
+        // end - Graph Lines of Code right
+            
         sb.append("</tr>");
         sb.append("</tbody>");
         sb.append("</table>");
@@ -485,6 +513,9 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
             sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
             sb.append("<tbody>");
             sb.append("<tr>");
+            
+            // Table Quality left
+            
             sb.append("<td width=\"50%\" valign=\"top\">");
             sb.append("<div align=\"center\">");
             sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
@@ -534,8 +565,21 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
             sb.append("</table>");
             sb.append("</div>");
             sb.append("</td>");
+            
+            // fin - Table Quality left
+            
+            // Graph Quality right
+            
             sb.append("<td width=\"50%\" valign=\"top\">");
+            sb.append("<div align=\"center\">");
+            sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
+            sb.append("Quality Bad & Poor");
+            sb.append("</div>");
+            sb.append("</div>");
             sb.append("</td>");
+            
+            // end - Graph Quality right
+            
             sb.append("</tr>");
             sb.append("</tbody>");
             sb.append("</table>");
