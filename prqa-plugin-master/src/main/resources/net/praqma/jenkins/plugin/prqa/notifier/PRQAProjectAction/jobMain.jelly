@@ -1,6 +1,11 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
 
+             
+        <j:set var="latestAction" value="${it.getLatestActionInProject()}"></j:set>
+        <j:set var="publisher" value="${latestAction.getPublisher()}"></j:set>
+        <j:set var="reportType" value="${publisher.getReportType()}"></j:set>
+        <j:set var="drawGraphs" value="${it.isDrawGraphs()}"></j:set>
 	    	<h3>${%PRQA Links of interest}</h3>
 	    	<ul>
 	        	<j:set var="conf" value="${it.getConfiguration()}"/>
@@ -13,6 +18,273 @@
 	            		</j:otherwise> 
 	        		</j:choose>        
 	    	</ul>
-            <j:set var="latestAction" value="${from.getBuildActionStatus(PRQAComplianceStatus.class)}"/>
-	    ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()}  
+	    <!-- ${it.getLatestActionInProject().getBuildActionStatus(PRQAComplianceStatus.class).toHtml()} --> 
+
+            
+<!-- ############################  QUALITY  ############################## -->
+
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table General left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%General Information}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+                                    ${latestAction.getBuildActionStatus(PRQAComplianceStatus.class).generalToHtml()}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table General left -->
+
+            <!-- Graph Lines of Code right -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Lines of Code}
+                    </div>
+                    <j:set var="latest" value="${from.latestActionInProject}"/>
+                    <j:if test="${latest != null}">
+                        <j:choose>
+                            <j:when test="${latest.previousAction != null}">    
+                                <j:forEach var="pgraph" items="${publisher.getSupportedGraphs()}">
+                                    <j:if test='${pgraph.getClass().getSimpleName().equals("LinesCodeGraph")}'>
+                                        <img style="" src='${from.urlName}/reportGraphs?width=400&amp;height=233&amp;graph=${"LinesCodeGraph"}&amp;tsetting=${publisher.threshholdlevel}'/>
+                                    </j:if>
+                                </j:forEach>
+                            </j:when>
+                            <j:otherwise>
+                                <h3>${%Not enough data}</h3>
+                                <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                            </j:otherwise>  
+                        </j:choose>
+                    </j:if>
+                    <j:if test="${latest eq null}">
+                        <div id="marginme" style="margin-right:150px">
+                            <h3>${%Not enough data}</h3>
+                            <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                        </div>
+                    </j:if>  
+                </div>
+            </td>
+
+            <!-- end - Graph Lines of Code right -->
+
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Quality left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Quality Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+                                    ${latestAction.getBuildActionStatus(PRQAComplianceStatus.class).qualityToHtml()}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Quality left -->
+
+            <!-- Graph Quality right -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Quality Bad and Poor}
+                    </div>
+                    <j:set var="latest" value="${from.latestActionInProject}"/>
+                    <j:if test="${latest != null}">
+                        <j:choose>
+                            <j:when test="${latest.previousAction != null}">             
+                                <j:forEach var="pgraph" items="${publisher.getSupportedGraphs()}">
+                                    <j:if test='${pgraph.getClass().getSimpleName().equals("QualityGraph")}'>
+                                        <img style="" src='${from.urlName}/reportGraphs?width=400&amp;height=233&amp;graph=${"QualityGraph"}&amp;tsetting=${publisher.threshholdlevel}'/>
+                                    </j:if>
+                                </j:forEach>
+                            </j:when>
+                            <j:otherwise>
+                                <h3>${%Not enough data}</h3>
+                                <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                            </j:otherwise> 
+                        </j:choose>
+                    </j:if>
+                    <j:if test="${latest eq null}">
+                        <div id="marginme" style="margin-right:150px">
+                            <h3>${%Not enough data}</h3>
+                            <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                        </div>
+                    </j:if>   
+                </div>
+            </td>
+
+            <!-- end - Graph Quality right -->
+
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- ############################  COMPLIANCE  ############################## -->
+
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Compliance left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Compliance Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+
+                                    ${latestAction.getBuildActionStatus(PRQAComplianceStatus.class).complianceToHtml()}
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Compliance left -->
+
+            <!-- Graph Compliance right -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Compliance Levels}
+                    </div>
+
+                    <j:set var="latest" value="${from.latestActionInProject}"/>
+                    <j:if test="${latest != null}">
+                        <j:choose>
+                            <j:when test="${latest.previousAction != null}">             
+                                <j:forEach var="pgraph" items="${publisher.getSupportedGraphs()}">
+                                    <j:if test='${pgraph.getClass().getSimpleName().equals("ComplianceIndexGraphs")}'>
+                                        <img style="" src='${from.urlName}/reportGraphs?width=400&amp;height=233&amp;graph=${"ComplianceIndexGraphs"}&amp;tsetting=${publisher.threshholdlevel}'/>
+                                    </j:if>
+                                </j:forEach>
+                            </j:when>
+                            <j:otherwise>
+                                <h3>${%Not enough data}</h3>
+                                <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                            </j:otherwise> 
+                        </j:choose>
+                    </j:if>
+                    <j:if test="${latest eq null}">
+                        <div id="marginme" style="margin-right:150px">
+                            <h3>${%Not enough data}</h3>
+                            <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                        </div>
+                    </j:if>   
+                </div>
+            </td>
+
+            <!-- end - Graph Compliance right -->
+
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Messages left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Messages Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">     
+
+                                    ${latestAction.getBuildActionStatus(PRQAComplianceStatus.class).messagesToHtml()}       
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Messages left -->
+
+            <!-- Graph Messages right -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Messages per Build}
+                    </div>
+                    <j:set var="latest" value="${from.latestActionInProject}"/>
+                    <j:if test="${latest != null}">
+                        <j:choose>
+                            <j:when test="${latest.previousAction != null}">    
+                                <j:forEach var="pgraph" items="${publisher.getSupportedGraphs()}">
+                                    <j:if test='${pgraph.getClass().getSimpleName().equals("MessagesGraph")}'>
+                                        <img style="" src='${from.urlName}/reportGraphs?width=400&amp;height=233&amp;graph=${"MessagesGraph"}&amp;tsetting=${publisher.threshholdlevel}'/>
+                                    </j:if>
+                                </j:forEach>
+                            </j:when>
+                            <j:otherwise>
+                                <h3>${%Not enough data}</h3>
+                                <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                            </j:otherwise>  
+                        </j:choose>
+                    </j:if>
+                    <j:if test="${latest eq null}">
+                        <div id="marginme" style="margin-right:150px">
+                            <h3>${%Not enough data}</h3>
+                            <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
+                        </div>
+                    </j:if>                 
+                </div>
+            </td>
+
+            <!-- end - Graph Messages right -->
+
+        </tr>
+    </tbody>
+</table>            
+            
+            
+            
 </j:jelly>

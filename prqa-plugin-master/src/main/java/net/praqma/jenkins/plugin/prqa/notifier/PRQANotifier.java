@@ -84,8 +84,10 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 
 import com.google.common.base.Strings;
+import net.praqma.jenkins.plugin.prqa.graphs.LinesCodeGraph;
 import net.praqma.jenkins.plugin.prqa.graphs.QualityGraph;
 import net.praqma.jenkins.plugin.prqa.threshold.FileQualityThreshold;
+import net.praqma.jenkins.plugin.prqa.threshold.LinesCodeThreshold;
 
 //TODO: I intend to REMOVE all the deprecated fields in the realease for the new PRQA API
 public class PRQANotifier extends Publisher {
@@ -219,6 +221,8 @@ public class PRQANotifier extends Publisher {
             tholds.put(StatusCategory.FileCompliance, ((FileComplianceThreshold) threshold).value);
         } else if (threshold instanceof MessageComplianceThreshold) {
             tholds.put(StatusCategory.Messages, ((MessageComplianceThreshold) threshold).value);
+        } else if (threshold instanceof LinesCodeThreshold) {
+            tholds.put(StatusCategory.LinesOfCode, ((LinesCodeThreshold) threshold).value);
         } else {
             tholds.put(StatusCategory.TotalNumberOfFiles, ((FileQualityThreshold) threshold).value);
         }
@@ -324,13 +328,11 @@ public class PRQANotifier extends Publisher {
     public List<PRQAGraph> getSupportedGraphs() {
         ArrayList<PRQAGraph> graphs = new ArrayList<PRQAGraph>();
         for (PRQAGraph g : graphTypes) {
-            //if (g.getType().equals(QARReportType.Compliance)) {
+            //if (g.getType().equals(QARReportType.Compliance) || 
+                    //g.getType().equals(QARReportType.Quality)) {
                 graphs.add(g);
-            //} else if (g.getType().equals(QARReportType.Quality)) {
-                //graphs.add(g);
             //}
         }
-        int i = 0;
         return graphs;
     }
 
@@ -772,12 +774,14 @@ outStream.println("____________________________________test 12__________________
                     }
                 }
                 instance.chosenReportTypes.add(QARReportType.Compliance);
+                instance.chosenReportTypes.add(QARReportType.Quality);
             }
             if (instance.getGraphTypes() == null || instance.getGraphTypes().isEmpty()) {
                 ArrayList<PRQAGraph> list = new ArrayList<PRQAGraph>();
                 list.add(new ComplianceIndexGraphs());
                 list.add(new MessagesGraph());
                 list.add(new QualityGraph());
+                list.add(new LinesCodeGraph());
                 instance.setGraphTypes(list);
             }
 

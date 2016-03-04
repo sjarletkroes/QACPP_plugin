@@ -1,6 +1,6 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
-    <j:set var="latestAction" value="${from.latestActionInProject}"/>
+    <!--j:set var="latestAction" value="${from.latestActionInProject}"/>
     <j:if test="${latestAction != null}">
         <j:choose>
             <j:when test="${latestAction.previousAction != null}">
@@ -25,5 +25,5 @@
             <h3>${%Not enough data}</h3>
             <p>${%The project needs to have at least two builds with data to generate a graph with results.}</p>
         </div>
-    </j:if>   
+    </j:if-->   
 </j:jelly>

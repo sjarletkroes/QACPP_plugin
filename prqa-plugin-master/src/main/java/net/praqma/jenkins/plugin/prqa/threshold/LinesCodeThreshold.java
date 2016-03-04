@@ -31,7 +31,6 @@ import net.praqma.jenkins.plugin.prqa.notifier.Messages;
 import net.praqma.jenkins.plugin.prqa.notifier.ThresholdSelectionDescriptor;
 import net.praqma.prqa.parsers.MessageGroup;
 import net.praqma.prqa.status.PRQAComplianceStatus;
-import net.praqma.prqa.status.PRQAQualityStatus;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
@@ -39,13 +38,13 @@ import org.kohsuke.stapler.QueryParameter;
  *
  * @author T0166941
  */
-public class FileQualityThreshold extends AbstractThreshold {
+public class LinesCodeThreshold extends AbstractThreshold {
 
     public final Integer value;
-    private static final Logger log = Logger.getLogger(FileQualityThreshold.class.getName());
+    private static final Logger log = Logger.getLogger(LinesCodeThreshold.class.getName());
 
     @DataBoundConstructor
-    public FileQualityThreshold(final Integer value, final int thresholdLevel, final Boolean improvement) {
+    public LinesCodeThreshold(final Integer value, final int thresholdLevel, final Boolean improvement) {
         super(improvement);
         this.value = value;
     }
@@ -61,11 +60,11 @@ public class FileQualityThreshold extends AbstractThreshold {
     }
 
     @Extension
-    public static final class DescriptorImpl extends ThresholdSelectionDescriptor<FileQualityThreshold> {
+    public static final class DescriptorImpl extends ThresholdSelectionDescriptor<LinesCodeThreshold> {
 
         @Override
         public String getDisplayName() {
-            return "File Quality Threshold";
+            return "Lines Code Threshold";
         }
 
         public FormValidation doCheckValue(@QueryParameter String value, @QueryParameter boolean improvement) {

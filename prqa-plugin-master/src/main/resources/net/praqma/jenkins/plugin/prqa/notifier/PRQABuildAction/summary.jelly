@@ -3,4 +3,149 @@
 	xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:u="/util">
 <j:set var="latestAction" value="${from.getBuildActionStatus(PRQAComplianceStatus.class)}"/>
 ${latestAction.toHtml()}
+
+
+
+
+<!-- ############################  QUALITY  ############################## -->
+
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table General left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%General Information}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+                                    ${latestAction.generalToHtml()}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table General left -->
+            
+            <td width="50%" valign="top">
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Quality left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Quality Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+                                    ${latestAction.qualityToHtml()}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Quality left -->
+            
+            <td width="50%" valign="top">
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- ############################  COMPLIANCE  ############################## -->
+
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Compliance left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Compliance Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">
+
+                                    ${latestAction.complianceToHtml()}
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Compliance left -->
+            
+            <td width="50%" valign="top">
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="center">
+    <tbody>
+        <tr>
+
+            <!-- Table Messages left -->
+
+            <td width="50%" valign="top">
+                <div align="center">
+                    <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
+                        ${%Messages Summary}
+                    </div>
+                    <table class="pane" style="margin-top: 0px; border-top: none;">
+                        <tr>
+                            <td>
+                                <div align="center">     
+
+                                    ${latestAction.messagesToHtml()}       
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <!-- end - Table Messages left -->
+
+            <td width="50%" valign="top">
+            </td>
+
+        </tr>
+    </tbody>
+</table>            
+
+
+
 </j:jelly>
