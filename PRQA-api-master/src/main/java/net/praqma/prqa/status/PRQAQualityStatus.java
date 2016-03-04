@@ -447,25 +447,9 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         logger.finest(String.format("Returning value: %s", output));
         return output;
     }
-
-    @Override
-    public String toHtml() {
+    
+    public String generalToHtml() {
         StringBuilder sb = new StringBuilder();
-        sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
-        sb.append("<tbody>");
-        sb.append("<tr>");
-            
-        // Table General left
-            
-        sb.append("<td width=\"50%\" valign=\"top\">");
-        sb.append("<div align=\"center\">");
-        sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
-        sb.append("General Information");
-        sb.append("</div>");
-        sb.append("<table class=\"pane\" style=\"margin-top: 0px; border-top: none;\">");
-        sb.append("<tr>");
-        sb.append("<td>");
-        sb.append("<div align=\"center\">");
         sb.append("<table class=\"pane\" style=\"margin-top: 0px;\">");
         sb.append("<tr style=\"border: 1px solid #BBB\">");
         sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Total Number of Files</th>");
@@ -481,110 +465,45 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         sb.append(String.format("<td>%s</td>", this.getNumberOfClasses()));
         sb.append("</tr>");
         sb.append("</table>");
-        sb.append("</div>");
-        sb.append("</td>");
+        return sb.toString();
+    }
+    
+    public String qualityToHtml() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table id=\"statistics\" class=\"pane\" style=\"margin-top: 0px;\">");
+        sb.append("<tr style=\"background-color: #F0F0F0; border: 1px solid #BBB\">");
+        sb.append("<th align=\"left\"></th>");
+        sb.append("<th align=\"left\">File</th>");
+        sb.append("<th align=\"left\">Function</th>");
+        sb.append("<th align=\"left\">Class</th>");
         sb.append("</tr>");
-        sb.append("</table>");
-        sb.append("</div>");
-        sb.append("</td>");
-            
-        // end - Table General left
-            
-        // Graph Lines of Code right
-            
-        sb.append("<td width=\"50%\" valign=\"top\">");
-        sb.append("<div align=\"center\">");
-        sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
-        sb.append("Lines of Code");
-        sb.append("</div>");
-        sb.append("</div>");
-        sb.append("</td>");
-            
-        // end - Graph Lines of Code right
-            
-        sb.append("</tr>");
-        sb.append("</tbody>");
-        sb.append("</table>");
 
-        if (this.getFileDetails() != null && this.getFileDetails().size() > 0
-                && this.getClassDetails() != null && this.getClassDetails().size() > 0
-                && this.getFunctionDetails() != null && this.getFunctionDetails().size() > 0) {
-
-            sb.append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" align=\"center\">");
-            sb.append("<tbody>");
-            sb.append("<tr>");
-            
-            // Table Quality left
-            
-            sb.append("<td width=\"50%\" valign=\"top\">");
-            sb.append("<div align=\"center\">");
-            sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
-            sb.append("Quality Summary");
-            sb.append("</div>");
-            sb.append("<table class=\"pane\" style=\"margin-top: 0px; border-top: none;\">");
-            sb.append("<tr>");
-            sb.append("<td>");
-            sb.append("<div align=\"center\">");
-            sb.append("<table id=\"statistics\" class=\"pane\" style=\"margin-top: 0px;\">");
-            sb.append("<tr style=\"background-color: #F0F0F0; border: 1px solid #BBB\">");
-            sb.append("<th align=\"left\"></th>");
-            sb.append("<th align=\"left\">File</th>");
-            sb.append("<th align=\"left\">Function</th>");
-            sb.append("<th align=\"left\">Class</th>");
-            sb.append("</tr>");
-
-            for (int i : getFileDetails().keySet()) {
-                String level = "";
-                switch (i) {
-                    case 0:
-                        level = "Bad";
-                        break;
-                    case 1:
-                        level = "Poor";
-                        break;
-                    case 2:
-                        level = "Average";
-                        break;
-                    case 3:
-                        level = "Good";
-                        break;
-                    case 4:
-                        level = "Excellent";
-                }
-                sb.append("<tr style=\"border: 1px solid #BBB\">");
-                sb.append(String.format("<th align=\"left\">%s</th>", level));
-                sb.append(String.format("<td>%s</td>", this.getFileDetails().get(i)));
-                sb.append(String.format("<td>%s</td>", this.getFunctionDetails().get(i)));
-                sb.append(String.format("<td>%s</td>", this.getClassDetails().get(i)));
-                sb.append("</tr>");
+        for (int i : getFileDetails().keySet()) {
+            String level = "";
+            switch (i) {
+                case 0:
+                    level = "Bad";
+                    break;
+                case 1:
+                    level = "Poor";
+                    break;
+                case 2:
+                    level = "Average";
+                    break;
+                case 3:
+                    level = "Good";
+                    break;
+                case 4:
+                    level = "Excellent";
             }
-            sb.append("</table>");
-            sb.append("</div>");
-            sb.append("</td>");
+            sb.append("<tr style=\"border: 1px solid #BBB\">");
+            sb.append(String.format("<th align=\"left\">%s</th>", level));
+            sb.append(String.format("<td>%s</td>", this.getFileDetails().get(i)));
+            sb.append(String.format("<td>%s</td>", this.getFunctionDetails().get(i)));
+            sb.append(String.format("<td>%s</td>", this.getClassDetails().get(i)));
             sb.append("</tr>");
-            sb.append("</table>");
-            sb.append("</div>");
-            sb.append("</td>");
-            
-            // fin - Table Quality left
-            
-            // Graph Quality right
-            
-            sb.append("<td width=\"50%\" valign=\"top\">");
-            sb.append("<div align=\"center\">");
-            sb.append("<div align=\"left\" style=\"border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;\">");
-            sb.append("Quality Bad & Poor");
-            sb.append("</div>");
-            sb.append("</div>");
-            sb.append("</td>");
-            
-            // end - Graph Quality right
-            
-            sb.append("</tr>");
-            sb.append("</tbody>");
-            sb.append("</table>");
         }
-
-        return sb.toString() + super.toHtml();
+        sb.append("</table>");
+        return sb.toString();
     }
 }

@@ -90,10 +90,4 @@ public abstract class PRQAStatus implements PRQAReading, Serializable {
      */
     public abstract boolean isValid();
 
-    /**
-     * Returns a table representation of the the toString method.
-     *
-     * @return
-     */
-    public abstract String toHtml();
 }
