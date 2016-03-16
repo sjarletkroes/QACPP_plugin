@@ -3,9 +3,11 @@ package net.praqma.prqa;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import junit.framework.TestCase;
 import net.praqma.prqa.exceptions.PrqaException;
 import net.praqma.prqa.parsers.ComplianceReportHtmlParser;
+import net.praqma.prqa.parsers.QualityReportHtmlParser;
 import net.praqma.prqa.products.PRQACommandBuilder;
 import net.praqma.prqa.products.QAV;
 import net.praqma.prqa.status.PRQAComplianceStatus;
@@ -157,6 +159,72 @@ public class PRQATest extends TestCase {
         assertEquals(1, listFileC.size());
         assertEquals(1, listProjC.size());
         assertEquals(1, listMsg.size());
+         
+        String fileName = f.getAbsolutePath();
+        System.out.println(String.format("Deleted file %s : %s", fileName, f.delete()));           
+    }    
+    
+    @Test
+    public void testParseQualityReport() throws IOException, PrqaException {
+        InputStream is = this.getClass().getResourceAsStream("Quality Report.xhtml");
+        assertNotNull(is);
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        
+        File f = File.createTempFile("testParse", ".xhtml");
+        FileWriter fw = new FileWriter(f);
+        
+        String line;
+        
+        while((line = br.readLine()) != null ) {
+            fw.write(line+System.getProperty("line.separator"));
+        }
+        
+        fw.close();
+       
+        QualityReportHtmlParser parser = new QualityReportHtmlParser();
+        parser.setFullReportPath(f.getPath());
+        
+        List<String> listFileN = parser.parse(f.getPath(), QualityReportHtmlParser.numberFilesPattern);
+        List<String> listLineN = parser.parse(f.getPath(), QualityReportHtmlParser.numberLinesOfCodePattern);
+        List<String> listFunctionN = parser.parse(f.getPath(), QualityReportHtmlParser.numberOfFunctionsPattern);
+        List<String> listClassN = parser.parse(f.getPath(), QualityReportHtmlParser.numberOfClassesPattern);
+        
+        for(Pattern files : QualityReportHtmlParser.fileDetails){
+            int fileDetailN = Integer.parseInt(parser.getResult(QualityReportHtmlParser.fileDetails[0]));
+            List<String> listFileDetailN = parser.parse(f.getPath(), files);
+            assertNotNull(listFileDetailN);
+            assertEquals(1, listFileDetailN.size());
+        }
+        
+        /*for(Pattern classes : QualityReportHtmlParser.classDetails){
+            List<String> listClassDetailN = parser.parse(f.getPath(), classes);
+            assertNotNull(listClassDetailN);
+            assertTrue(listClassDetailN.size()<=1);
+        }*/
+        
+        for(Pattern functions : QualityReportHtmlParser.functionDetails){
+            List<String> listFunctionDetailN = parser.parse(f.getPath(), functions);
+            assertNotNull(listFunctionDetailN);
+            assertEquals(1, listFunctionDetailN.size());
+        }
+        
+        String dman = parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern);
+        
+        System.out.println("Result was: "+dman);
+        
+        
+        //Assert Not null.
+        
+        assertNotNull(listFileN);
+        assertNotNull(listLineN);
+        assertNotNull(listFunctionN);
+        
+        //Assert that each list contains EXACTLY 1 element. That is the requirement for the compliance report.
+        
+        assertEquals(1, listFileN.size());
+        assertEquals(1, listLineN.size());
+        assertEquals(1, listFunctionN.size());
          
         String fileName = f.getAbsolutePath();
         System.out.println(String.format("Deleted file %s : %s", fileName, f.delete()));           

@@ -15,7 +15,7 @@ import net.praqma.prqa.exceptions.PrqaReadingException;
  */
 public class PRQAQualityStatus extends PRQAComplianceStatus {
 
-    private final int BAD = 0, POOR = 1, AVERAGE = 2, GOOD = 3, EXCELLENT = 4;
+    private final int BAD = 4, POOR = 3, AVERAGE = 2, GOOD = 1, EXCELLENT = 0;
 
     private int numberOfFiles;
     private int linesOfCode;
@@ -193,7 +193,7 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         logger.finest(String.format("Input parameter cat type: %s; value: %s", cat.getClass(), cat));
 
         Number output = null;
-                
+
         switch (cat) {
             case TotalNumberOfFiles:
                 output = this.getNumberOfFiles();
@@ -258,7 +258,7 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         try {
             super.setReadout(category, value);
         } catch(Exception e) { }
-        
+
         switch (category) {
             case TotalNumberOfFiles:
                 int nbFiles = value.intValue();
@@ -310,8 +310,7 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
     }
 
     /**
-     * *
-     * Implemented to provide a good reading
+     * Implemented to provide a good reading.
      *
      * @return
      */
@@ -397,7 +396,9 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
      * Implemented this to decide which one is 'better than last'.
      *
      * @param o
-     * @return
+     * @return the value 0 if the argument o is equal to this PRQAQualityStatus;
+     * a value less than 0 if this PRQAQualityStatus is worse than o;
+     * and a value greater than 0 if this PRQAQualityStatus is better than o.
      */
     public int compareTo(PRQAQualityStatus o) {
         int s = super.compareTo(o);
@@ -448,59 +449,78 @@ public class PRQAQualityStatus extends PRQAComplianceStatus {
         return output;
     }
     
+    /**
+     * Returns the html table containing the project's general data. (number of
+     * files, lines of code, functions, classes)
+     *
+     * @return String
+     */
     public String generalToHtml() {
         StringBuilder sb = new StringBuilder();
         sb.append("<table class=\"pane\" style=\"margin-top: 0px;\">");
         sb.append("<tr style=\"border: 1px solid #BBB\">");
-        sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Total Number of Files</th>");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Total Number of Files</th>");
         sb.append(String.format("<td>%s</td>", this.getNumberOfFiles()));
         sb.append("<tr style=\"border: 1px solid #BBB\">");
-        sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Lines of Code</th>");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Lines of Code</th>");
         sb.append(String.format("<td>%s</td>", this.getLinesOfCode()));
         sb.append("<tr style=\"border: 1px solid #BBB\">");
-        sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Number of Functions</th>");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Number of Functions</th>");
         sb.append(String.format("<td>%s</td>", this.getNumberOfFunctions()));
         sb.append("<tr style=\"border: 1px solid #BBB\">");
-        sb.append("<th style=\"background-color: #F0F0F0;\" align=\"left\">Number of Classes</th>");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Number of Classes</th>");
         sb.append(String.format("<td>%s</td>", this.getNumberOfClasses()));
         sb.append("</tr>");
         sb.append("</table>");
         return sb.toString();
     }
-    
-    public String qualityToHtml() {
+
+     /**
+     * Returns the html table containing the project's file, function & class
+     * details. (Excellent, Good, Average, Poor, Bad)
+     *
+     * @return String
+     * @throws net.praqma.prqa.exceptions.PrqaReadingException
+     */
+    public String qualityToHtml() throws PrqaReadingException {
         StringBuilder sb = new StringBuilder();
         sb.append("<table id=\"statistics\" class=\"pane\" style=\"margin-top: 0px;\">");
         sb.append("<tr style=\"background-color: #F0F0F0; border: 1px solid #BBB\">");
-        sb.append("<th align=\"left\"></th>");
-        sb.append("<th align=\"left\">File</th>");
-        sb.append("<th align=\"left\">Function</th>");
-        sb.append("<th align=\"left\">Class</th>");
+        sb.append("<th width=\"20%\" align=\"left\"></th>");
+        sb.append("<th width=\"20%\" align=\"left\">File</th>");
+        sb.append("<th width=\"20%\" align=\"left\">Function</th>");
+        sb.append("<th width=\"20%\" align=\"left\">Class</th>");
         sb.append("</tr>");
 
         for (int i : getFileDetails().keySet()) {
             String level = "";
             switch (i) {
-                case 0:
-                    level = "Bad";
+                case EXCELLENT:
+                    level = "Excellent";
                     break;
-                case 1:
-                    level = "Poor";
-                    break;
-                case 2:
-                    level = "Average";
-                    break;
-                case 3:
+                case GOOD:
                     level = "Good";
                     break;
-                case 4:
-                    level = "Excellent";
+                case AVERAGE:
+                    level = "Average";
+                    break;
+                case POOR:
+                    level = "Poor";
+                    break;
+                case BAD:
+                    level = "Bad";
+                    break;
+                default:
+                    PrqaReadingException exception = new PrqaReadingException(
+                            String.format("This is impossible....."));
+                    logger.severe(String.format("This is impossible....."));
+                    throw exception;
             }
             sb.append("<tr style=\"border: 1px solid #BBB\">");
-            sb.append(String.format("<th align=\"left\">%s</th>", level));
-            sb.append(String.format("<td>%s</td>", this.getFileDetails().get(i)));
-            sb.append(String.format("<td>%s</td>", this.getFunctionDetails().get(i)));
-            sb.append(String.format("<td>%s</td>", this.getClassDetails().get(i)));
+            sb.append(String.format("<th width=\"20%s\" align=\"left\" style=\"background-color: #F0F0F0; border: 1px solid #BBB\">%s</th>", '%', level));
+            sb.append(String.format("<td width=\"20%s\">%s</td>", '%', this.getFileDetails().get(i)));
+            sb.append(String.format("<td width=\"20%s\">%s</td>", '%', this.getFunctionDetails().get(i)));
+            sb.append(String.format("<td width=\"20%s\">%s</td>", '%', this.getClassDetails().get(i)));
             sb.append("</tr>");
         }
         sb.append("</table>");

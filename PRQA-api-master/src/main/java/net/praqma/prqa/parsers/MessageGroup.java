@@ -36,5 +36,4 @@ public class MessageGroup {
     public int getMessagesWithinTreshold() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

@@ -316,13 +316,19 @@ public class PRQAReport implements Serializable {
             try {
                 int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.fileDetails[i]));
                 status.getFileDetails().put(i, result);
-                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.classDetails[i]));
-                status.getClassDetails().put(i, result);
-                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.functionDetails[i]));
-                status.getFunctionDetails().put(i, result);
             } catch (NumberFormatException nfe) {
                 status.getFileDetails().put(i, 0);
+            }
+            try {
+                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.classDetails[i]));
+                status.getClassDetails().put(i, result);
+            } catch (NumberFormatException nfe) {
                 status.getClassDetails().put(i, 0);
+            }
+            try {
+                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.functionDetails[i]));
+                status.getFunctionDetails().put(i, result);
+            } catch (NumberFormatException nfe) {
                 status.getFunctionDetails().put(i, 0);
             }
         }

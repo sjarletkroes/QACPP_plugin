@@ -4,7 +4,13 @@
  */
 package net.praqma.prqa.parsers;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,8 +25,6 @@ import net.praqma.prqa.exceptions.PrqaParserException;
  */
 public abstract class ReportHtmlParser implements Serializable {
 
-    
-    
     protected String fullReportPath;
     private static final Logger logger;
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -28,11 +32,10 @@ public abstract class ReportHtmlParser implements Serializable {
     static {
         logger = Logger.getLogger(ReportHtmlParser.class.getName());
     }
-    
+
     public ReportHtmlParser() {
-        
     }
-    
+
     public ReportHtmlParser(String fullReportPath) {
         this.fullReportPath = fullReportPath;
     }
@@ -48,16 +51,22 @@ public abstract class ReportHtmlParser implements Serializable {
         logger.finest(String.format("Ending execution of method - setFullReportPath"));
     }
 
+    /**
+     * Returns the first result found for the pattern. null if not found
+     *
+     * @param pattern
+     * @return String
+     * @throws PrqaException
+     */
     public String getResult(Pattern pattern) throws PrqaException {
         logger.finest(String.format("Starting execution of method - getResult"));
         String output = getFirstResult(parse(this.fullReportPath, pattern));
         logger.finest(String.format("Returning value: %s", output));
         return output;
     }
-    
+
     /**
-     * *
-     * Parse method. Takes a path to a file, and a pattern for which to scan for.
+     * Parse method. Takes a path to a file, and a pattern for which to scan for
      *
      * @param path
      * @param pattern
@@ -65,7 +74,6 @@ public abstract class ReportHtmlParser implements Serializable {
      * @throws net.praqma.prqa.exceptions.PrqaParserException
      * @throws PrqaException
      */
-    
     public List<String> parse(String path, Pattern pattern) throws PrqaParserException {
         logger.finest(String.format("Starting execution of method - parse"));
 
@@ -138,6 +146,7 @@ public abstract class ReportHtmlParser implements Serializable {
         logger.finest(String.format("Returning result:"));
         for (String s : result) {
             logger.finest(String.format("    %s", s));
+            System.out.println("result: " + s);
         }
 
         return result;
