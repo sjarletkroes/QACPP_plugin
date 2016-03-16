@@ -44,8 +44,8 @@ public class GraphTest extends TestCase {
         assertEquals(cGraphs.getData().getOverriddenMax(StatusCategory.FileCompliance), Integer.valueOf(100));
         assertEquals(cGraphs.getData().getOverriddenMax(StatusCategory.ProjectCompliance),Integer.valueOf(100));
         System.out.println("Test min values");
-        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.FileCompliance),Integer.valueOf(40));
-        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.ProjectCompliance),Integer.valueOf(40));
+        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.FileCompliance),Integer.valueOf(80));
+        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.ProjectCompliance),Integer.valueOf(80));
         assertNotNull(cGraphs.getTitle());
         assertNotNull(cGraphs.getType());
 

@@ -68,7 +68,7 @@ public class PRQABuildAction implements Action {
     }
 
     /**
-     * 
+     *
      * @param cat
      * @return
      */
@@ -76,7 +76,7 @@ public class PRQABuildAction implements Action {
         if (this.result != null) {
             if (this.result.getClass() == PRQAComplianceStatus.class) {
                 PRQAComplianceStatus res = (PRQAComplianceStatus) this.result;
-                if(res.getThresholds().containsKey(cat)) {
+                if (res.getThresholds().containsKey(cat)) {
                     return res.getThresholds().get(cat);
                 }
             }

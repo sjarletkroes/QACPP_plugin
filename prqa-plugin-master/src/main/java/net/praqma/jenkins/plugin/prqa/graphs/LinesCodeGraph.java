@@ -28,6 +28,7 @@ import hudson.util.DataSetBuilder;
 import java.io.IOException;
 import net.praqma.prqa.PRQAContext;
 import net.praqma.prqa.PRQAStatusCollection;
+import net.praqma.prqa.exceptions.PrqaException;
 import net.praqma.prqa.status.StatusCategory;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -49,8 +50,16 @@ public class LinesCodeGraph extends PRQAGraph {
 
     @Override
     public void setData(PRQAStatusCollection data) {
+        Number min = 5000;        
+        Number max = null;       
         super.setData(data);
-        data.overrideMin(StatusCategory.LinesOfCode, 0);
+        try {
+            min = data.getMin(StatusCategory.LinesOfCode);
+            max = data.getMax(StatusCategory.LinesOfCode);
+        } catch (PrqaException iex) {
+        }
+        this.data.overrideMin(StatusCategory.LinesOfCode, min);
+        this.data.overrideMax(StatusCategory.LinesOfCode, max);
     }
     
 }

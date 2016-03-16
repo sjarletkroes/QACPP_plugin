@@ -76,7 +76,6 @@ public class PRQAProjectAction extends Actionable implements ProminentProjectAct
             try {
                 action.doReportGraphs(req, rsp);
             } catch (IOException exception) {
-                System.out.println("AYAYAYAYAYA !!!!!!!!!!!! This should not be happening !!!!!!!!!!");
             }
         }
     }

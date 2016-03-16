@@ -24,9 +24,9 @@ public class ComplianceIndexGraphs extends PRQAGraph {
     public void setData(PRQAStatusCollection data) {
         this.data = data;
         this.data.overrideMax(StatusCategory.FileCompliance, 100);
-        this.data.overrideMin(StatusCategory.FileCompliance, 40);
+        this.data.overrideMin(StatusCategory.FileCompliance, 80);
         this.data.overrideMax(StatusCategory.ProjectCompliance, 100);
-        this.data.overrideMin(StatusCategory.ProjectCompliance, 40);
+        this.data.overrideMin(StatusCategory.ProjectCompliance, 80);
     }
 
     @Override

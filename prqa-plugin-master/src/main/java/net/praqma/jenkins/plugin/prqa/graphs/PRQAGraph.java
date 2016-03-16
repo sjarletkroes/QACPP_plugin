@@ -133,7 +133,7 @@ public abstract class PRQAGraph implements Serializable {
 
         final CategoryPlot plot = chart.getCategoryPlot();
 
-        plot.setBackgroundPaint(Color.CYAN);
+        plot.setBackgroundPaint(Color.RED);
         plot.setOutlinePaint(null);
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.CYAN);
