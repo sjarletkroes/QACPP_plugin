@@ -106,9 +106,9 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>net.praqma</groupId>
+            <groupId>net.trixell</groupId>
             <artifactId>prqa</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>com.programmingresearch</groupId>

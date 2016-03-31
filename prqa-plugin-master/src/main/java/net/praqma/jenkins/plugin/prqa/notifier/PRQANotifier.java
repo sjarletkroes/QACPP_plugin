@@ -84,6 +84,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.export.Exported;
 
 import com.google.common.base.Strings;
+import java.util.Iterator;
 import net.praqma.jenkins.plugin.prqa.graphs.LinesCodeGraph;
 import net.praqma.jenkins.plugin.prqa.graphs.QualityGraph;
 import net.praqma.jenkins.plugin.prqa.threshold.FileQualityThreshold;
@@ -445,6 +446,7 @@ public class PRQANotifier extends Publisher {
                 settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer, pSource.projectFile,
                         prqaReportPRQAToolSource.performCrossModuleAnalysis, prqaReportPRQAToolSource.publishToQAV,
                         prqaReportPRQAToolSource.enableDependencyMode, prqaReportPRQAToolSource.enableDataFlowAnalysis,
+                        prqaReportPRQAToolSource.generateCodeReviewReport, prqaReportPRQAToolSource.generateSuppressionReport,
                         chosenReportTypes, productUsed);
                 qar = new QAR(productUsed, pSource.projectFile, QARReportType.Compliance);
 
@@ -452,7 +454,11 @@ public class PRQANotifier extends Publisher {
                     && prqaReportPRQAToolSource.fileProjectSource instanceof PRQAReportFileListSource) {
                 PRQAReportFileListSource flSource = (PRQAReportFileListSource) prqaReportPRQAToolSource.fileProjectSource;
 
-                settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer, flSource.fileList, prqaReportPRQAToolSource.performCrossModuleAnalysis, prqaReportPRQAToolSource.publishToQAV, prqaReportPRQAToolSource.enableDependencyMode, prqaReportPRQAToolSource.enableDataFlowAnalysis, chosenReportTypes, productUsed, flSource.settingsFile);
+                settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer, flSource.fileList,
+                        prqaReportPRQAToolSource.performCrossModuleAnalysis, prqaReportPRQAToolSource.publishToQAV, 
+                        prqaReportPRQAToolSource.enableDependencyMode, prqaReportPRQAToolSource.enableDataFlowAnalysis,
+                        prqaReportPRQAToolSource.generateCodeReviewReport, prqaReportPRQAToolSource.generateSuppressionReport, 
+                        chosenReportTypes, productUsed, flSource.settingsFile);
                 qar = new QAR(productUsed, flSource.fileList, QARReportType.Compliance);
 
             } else {
@@ -460,7 +466,9 @@ public class PRQANotifier extends Publisher {
                 settings = new PRQAReportSettings(prqaReportPRQAToolSource.chosenServer,
                         prqaReportPRQAToolSource.projectFile, prqaReportPRQAToolSource.performCrossModuleAnalysis,
                         prqaReportPRQAToolSource.publishToQAV, prqaReportPRQAToolSource.enableDependencyMode,
-                        prqaReportPRQAToolSource.enableDataFlowAnalysis, chosenReportTypes, productUsed);
+                        prqaReportPRQAToolSource.enableDataFlowAnalysis,
+                        prqaReportPRQAToolSource.generateCodeReviewReport, prqaReportPRQAToolSource.generateSuppressionReport, 
+                        chosenReportTypes, productUsed);
                 qar = new QAR(productUsed, prqaReportPRQAToolSource.projectFile, QARReportType.Compliance);
             }
 
@@ -756,25 +764,23 @@ outStream.println("____________________________________test 12__________________
 
         @Override
         public Publisher newInstance(StaplerRequest req, JSONObject formData) throws Descriptor.FormException {
-            final String CHOSEN_REPORT = "chosenReport";
+            final String CODE_REVIEW = "generateCodeReviewReport";
+            final String SUPPRESSION = "generateSuppressionReport";
             final String SOURCE_QA_FRAMEWORK = "sourceQAFramework";
             PRQANotifier instance = req.bindJSON(PRQANotifier.class, formData);
 
             JSONObject sourceObject = formData.getJSONObject(SOURCE_QA_FRAMEWORK);
-            if (sourceObject.containsKey(CHOSEN_REPORT)) {
-                JSONArray chosenReportArray = sourceObject.getJSONArray(CHOSEN_REPORT);
+            instance.setChosenReportTypes(QARReportType.REQUIRED_TYPES.clone());
 
-                QARReportType[] types = getOptionalReportTypes().toArray(
-                        new QARReportType[getOptionalReportTypes().size()]);
-                instance.setChosenReportTypes(QARReportType.REQUIRED_TYPES.clone());
-
-                for (int i = 0; i < chosenReportArray.size(); i++) {
-                    if (chosenReportArray.getBoolean(i) == true) {
-                        instance.chosenReportTypes.add(types[i]);
-                    }
+            if (sourceObject.containsKey(CODE_REVIEW)) {
+                if (sourceObject.getBoolean(CODE_REVIEW)) {
+                    instance.chosenReportTypes.add(QARReportType.CodeReview);
                 }
-                instance.chosenReportTypes.add(QARReportType.Compliance);
-                instance.chosenReportTypes.add(QARReportType.Quality);
+            }
+            if (sourceObject.containsKey(SUPPRESSION)) {
+                if (sourceObject.getBoolean(SUPPRESSION)) {
+                    instance.chosenReportTypes.add(QARReportType.Suppression);
+                }
             }
             if (instance.getGraphTypes() == null || instance.getGraphTypes().isEmpty()) {
                 ArrayList<PRQAGraph> list = new ArrayList<PRQAGraph>();

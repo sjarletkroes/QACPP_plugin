@@ -55,6 +55,9 @@ public class PRQAReportPRQAToolSource extends PostBuildActionSetup {
     public boolean enableDependencyMode;
     public boolean enableDataFlowAnalysis;
     public PRQAFileProjectSource fileProjectSource;
+    
+    public boolean generateCodeReviewReport;
+    public boolean generateSuppressionReport;
 
     public final boolean publishToQAV;
     public String chosenServer;
@@ -67,7 +70,7 @@ public class PRQAReportPRQAToolSource extends PostBuildActionSetup {
     @DataBoundConstructor
     public PRQAReportPRQAToolSource(
             String product, String projectFile, boolean performCrossModuleAnalysis, boolean enableDependencyMode, boolean enableDataFlowAnalysis,
-            PRQAFileProjectSource fileProjectSource, boolean publishToQAV, String chosenServer, String codeUploadSetting, String qaVerifyProjectName,
+            PRQAFileProjectSource fileProjectSource, boolean generateCodeReviewReport, boolean generateSuppressionReport, boolean publishToQAV, String chosenServer, String codeUploadSetting, String qaVerifyProjectName,
             String vcsConfigXml, String sourceOrigin, boolean singleSnapshotMode) {
 
         this.product = product;
@@ -76,6 +79,9 @@ public class PRQAReportPRQAToolSource extends PostBuildActionSetup {
         this.enableDependencyMode = enableDependencyMode;
         this.enableDataFlowAnalysis = enableDataFlowAnalysis;
         this.fileProjectSource = fileProjectSource;
+        // generate optional reports
+        this.generateCodeReviewReport = generateCodeReviewReport;
+        this.generateSuppressionReport = generateSuppressionReport;
         // publish to qav
         this.publishToQAV = publishToQAV;
         this.chosenServer = chosenServer;
@@ -147,6 +153,22 @@ public class PRQAReportPRQAToolSource extends PostBuildActionSetup {
         return product;
     }
 
+    public boolean isGenerateCodeReviewReport() {
+        return generateCodeReviewReport;
+    }
+
+    public void setGenerateCodeReviewReport(boolean generateCodeReviewReport) {
+        this.generateCodeReviewReport = generateCodeReviewReport;
+    }
+
+    public boolean isGenerateSuppressionReport() {
+        return generateSuppressionReport;
+    }
+
+    public void setGenerateSuppressionReport(boolean generateSuppressionReport) {
+        this.generateSuppressionReport = generateSuppressionReport;
+    }
+
     public boolean isPerformCrossModuleAnalysis() {
         return performCrossModuleAnalysis;
     }
@@ -189,7 +211,7 @@ public class PRQAReportPRQAToolSource extends PostBuildActionSetup {
 
     @Extension
     public final static class DescriptorImpl extends PRQAReportSourceDescriptor<PRQAReportPRQAToolSource> {
-
+        
         @Override
         public boolean configure(StaplerRequest req, JSONObject json) throws Descriptor.FormException {
             save();

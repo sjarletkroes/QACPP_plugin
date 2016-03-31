@@ -39,7 +39,7 @@ import org.kohsuke.stapler.StaplerResponse;
 public class QualityGraph extends PRQAGraph {
 
     public QualityGraph() {        
-        super("Quality", PRQAContext.QARReportType.Quality, StatusCategory.FilesBadPoor, 
+        super("Quality Bad & Poor per Build", PRQAContext.QARReportType.Quality, StatusCategory.FilesBadPoor, 
                 StatusCategory.FunctionsBadPoor, StatusCategory.ClassesBadPoor);
     }
 

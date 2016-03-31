@@ -128,15 +128,19 @@ public class PRQARemoteReport implements FileCallable<PRQAComplianceStatus>{
              * 
              * We skip the analysis phase
              */
-            if(!StringUtils.isBlank(report.getSettings().projectFile)) {
+            //if(!StringUtils.isBlank(report.getSettings().projectFile)) {
                 listener.getLogger().println("Analysis command:");
                 listener.getLogger().println(report.createAnalysisCommand(isUnix));
                 report.analyze(isUnix);
-            }
+            //}
             
             listener.getLogger().println("Report command:");
             listener.getLogger().println(report.createReportCommand(isUnix));
             report.report(isUnix);
+            
+            listener.getLogger().println("Project Warning Summary command:");
+            listener.getLogger().println(report.createWarningSummaryCommand(isUnix));
+            report.warningSummary(isUnix);
             
             if(!StringUtils.isBlank(report.createUploadCommand())) {
                 listener.getLogger().println("Uploading with command:");

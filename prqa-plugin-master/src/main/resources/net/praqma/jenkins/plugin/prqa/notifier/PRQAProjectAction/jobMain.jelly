@@ -54,7 +54,7 @@
             <td width="50%" valign="top">
                 <div align="center">
                     <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
-                        ${%Lines of Code}
+                        ${%General Information per Build}
                     </div>
                     <j:set var="latest" value="${from.latestActionInProject}"/>
                     <j:if test="${latest != null}">
@@ -117,7 +117,7 @@
             <td width="50%" valign="top">
                 <div align="center">
                     <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
-                        ${%Quality Bad and Poor}
+                        ${%Quality Bad and Poor per Build}
                     </div>
                     <j:set var="latest" value="${from.latestActionInProject}"/>
                     <j:if test="${latest != null}">
@@ -186,7 +186,7 @@
             <td width="50%" valign="top">
                 <div align="center">
                     <div align="left" style="border: 1px solid #999999; background-color: #F0F0F0; padding: 4px; font-weight: bold;">
-                        ${%Compliance Levels}
+                        ${%Compliance Levels per Build}
                     </div>
 
                     <j:set var="latest" value="${from.latestActionInProject}"/>

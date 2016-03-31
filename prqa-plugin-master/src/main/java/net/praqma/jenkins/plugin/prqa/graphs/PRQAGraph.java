@@ -103,7 +103,10 @@ public abstract class PRQAGraph implements Serializable {
                 }
                 log.fine("Iterating using category: " + category);
                 if (max != null && min != null) {
-                    ChartUtil.generateGraph(req, rsp, createChart(dsb.build(), getTitle() == null ? category.toString() : getTitle(), null, threshHoldMax != null ? threshHoldMax.intValue() : max.intValue(), min.intValue()), width, height);
+                    ChartUtil.generateGraph(req, rsp, 
+                            createChart(dsb.build(), getTitle() == null ? category.toString() : getTitle(), null, 
+                            threshHoldMax != null ? threshHoldMax.intValue() : max.intValue(), min.intValue()), 
+                            width, height);
                 }
 
             }
@@ -136,7 +139,7 @@ public abstract class PRQAGraph implements Serializable {
         plot.setBackgroundPaint(Color.RED);
         plot.setOutlinePaint(null);
         plot.setRangeGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.CYAN);
+        plot.setRangeGridlinePaint(Color.GRAY);
 
         CategoryAxis domainAxis = new ShiftedCategoryAxis(null);
         plot.setDomainAxis(domainAxis);
@@ -161,6 +164,7 @@ public abstract class PRQAGraph implements Serializable {
         this.data = new PRQAStatusCollection();
         this.categories = new ArrayList<StatusCategory>();
         this.categories.addAll(Arrays.asList(category));
+        System.out.println(this.categories.toString());
         this.type = type;
         this.title = title;
     }
