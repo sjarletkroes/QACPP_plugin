@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class PRQAReportSettingsTest {
     @Test public void testPRQAReportSettingsInitializationTest() {
-        PRQAReportSettings settings = new PRQAReportSettings("Myserver", "Myproject.prj", true, false, true, true, null, null);
-        PRQAReportSettings settings2 = new PRQAReportSettings("Myserver", "Myproject.prj", true, false, true, true, null, null,"via.settings");
+        PRQAReportSettings settings = new PRQAReportSettings("Myserver", "Myproject.prj", true, false, true, true, true, true, null, null);
+        PRQAReportSettings settings2 = new PRQAReportSettings("Myserver", "Myproject.prj", true, false, true, true, true, true, null, null,"via.settings");
     }
 }

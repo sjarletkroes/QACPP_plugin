@@ -46,6 +46,14 @@ public class PRQAApplicationSettings implements Serializable {
         }
     }
     
+    public static String resolveErrSumExe(boolean isUnix) {
+        if(isUnix) {
+            return /*productHome +*/ "errsum.exe";
+        } else {
+            return /*productHome +*/ "errsum.exe";
+        }
+    }
+    
     public static String addSlash(String value, String pathSeperator) {
         if(value.endsWith(pathSeperator)) {
             return value;

@@ -21,11 +21,15 @@ public class PRQAReportSettings implements Serializable, ReportSettings {
     //Analysis options
     public final boolean enableDependencyMode;
     public final boolean enableDataFlowAnalysis;
+    // Report options
+    public final boolean generateCodeReviewReport;
+    public final boolean generateSuppressionReport;
     
     public final String product;
     
     public PRQAReportSettings(final String chosenServer, final String projectFile, final boolean performCrossModuleAnalysis,
-            final boolean publishToQAV, final boolean enableDependencyMode, final boolean enableDataFlowAnalysis, 
+            final boolean publishToQAV, final boolean enableDependencyMode, final boolean enableDataFlowAnalysis,
+            final boolean generateCodeReviewReport, final boolean generateSuppressionReport,
             final EnumSet<PRQAContext.QARReportType> chosenReportTypes, final String product) {
         this.chosenServer = chosenServer;
         this.projectFile = projectFile;
@@ -33,6 +37,8 @@ public class PRQAReportSettings implements Serializable, ReportSettings {
         this.publishToQAV = publishToQAV;
         this.enableDependencyMode = enableDependencyMode;
         this.enableDataFlowAnalysis = enableDataFlowAnalysis;
+        this.generateCodeReviewReport = generateCodeReviewReport;
+        this.generateSuppressionReport = generateSuppressionReport;
         this.chosenReportTypes = chosenReportTypes;
         this.product = product;
         this.settingsFile = null;
@@ -40,7 +46,8 @@ public class PRQAReportSettings implements Serializable, ReportSettings {
     }
     
     public PRQAReportSettings(final String chosenServer, final String fileList, final boolean performCrossModuleAnalysis,
-            final boolean publishToQAV, final boolean enableDependencyMode, final boolean enableDataFlowAnalysis, 
+            final boolean publishToQAV, final boolean enableDependencyMode, final boolean enableDataFlowAnalysis,
+            final boolean generateCodeReviewReport, final boolean generateSuppressionReport, 
             final EnumSet<PRQAContext.QARReportType> chosenReportTypes, final String product, final String settingsFile) {
         this.chosenServer = chosenServer;
         this.projectFile = null;
@@ -49,6 +56,8 @@ public class PRQAReportSettings implements Serializable, ReportSettings {
         this.publishToQAV = publishToQAV;
         this.enableDependencyMode = enableDependencyMode;
         this.enableDataFlowAnalysis = enableDataFlowAnalysis;
+        this.generateCodeReviewReport = generateCodeReviewReport;
+        this.generateSuppressionReport = generateSuppressionReport;
         this.chosenReportTypes = chosenReportTypes;
         this.product = product;
         this.settingsFile = settingsFile;
@@ -63,6 +72,8 @@ public class PRQAReportSettings implements Serializable, ReportSettings {
         builder.append( String.format( "Publish to QAVerify: %s%n", publishToQAV) );
         builder.append( String.format( "Dependency Analysis: %s%n", enableDependencyMode) );
         builder.append( String.format( "Data flow analysis: %s%n", enableDataFlowAnalysis) );
+        builder.append( String.format( "Generate Code Review Report: %s%n", generateCodeReviewReport) );
+        builder.append( String.format( "Generate Suppression Report: %s%n", generateSuppressionReport) );
         return builder.toString();
     }
 

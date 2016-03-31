@@ -31,7 +31,7 @@ public class PRQAReportTest {
     
     @BeforeClass public static void setup() {
         mockProjectFile = new File(tmpDir,"mock.prj").getAbsolutePath();
-        repSettings = new PRQAReportSettings(null, mockProjectFile, true, false, true, true, PRQAContext.QARReportType.REQUIRED_TYPES, "qac");
+        repSettings = new PRQAReportSettings(null, mockProjectFile, true, false, true, true, true, true, PRQAContext.QARReportType.REQUIRED_TYPES, "qac");
         serverSettings = new QAVerifyServerSettings("localhost", 8080, "http", "admin", "admin");
         appSettings = new PRQAApplicationSettings(null, null, null, null);
         uploadSettings = new PRQAUploadSettings(null, false, CodeUploadSetting.AllCode, null, "projectName");
@@ -98,7 +98,7 @@ public class PRQAReportTest {
         new File(mockProjectFile).createNewFile();
         String command = report.createUploadCommand();
         assertNull(command);
-        PRQAReportSettings enableUpload = new PRQAReportSettings(null, mockProjectFile, true, true, true, true, PRQAContext.QARReportType.REQUIRED_TYPES, "qac");
+        PRQAReportSettings enableUpload = new PRQAReportSettings(null, mockProjectFile, true, true, true, true, true, true, PRQAContext.QARReportType.REQUIRED_TYPES, "qac");
         report = new PRQAReport(enableUpload, serverSettings, uploadSettings, appSettings);
         report.setWorkspace(tmpDir);
         String command2 = report.createUploadCommand();
