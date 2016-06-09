@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa
+END
+VersionInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/ELEC/HOST_SOFTWARE/!svn/ver/2131/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/VersionInfo.java
+END
+QAFrameworkRemoteReport.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/QAFrameworkRemoteReport.java
+END
+PRQARemoteReport.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/PRQARemoteReport.java
+END
+PRQARemoteToolCheck.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/PRQARemoteToolCheck.java
+END

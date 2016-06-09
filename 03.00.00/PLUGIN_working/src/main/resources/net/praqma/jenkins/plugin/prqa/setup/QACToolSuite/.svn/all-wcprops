@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite
+END
+help-home.html
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-home.html
+END
+config.jelly
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/config.jelly
+END
+help-qarHome.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-qarHome.html
+END
+help-tool.html
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-tool.html
+END
+help-name.html
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-name.html
+END
+help-qavHome.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-qavHome.html
+END
+help-qawHome.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/setup/QACToolSuite/help-qawHome.html
+END
