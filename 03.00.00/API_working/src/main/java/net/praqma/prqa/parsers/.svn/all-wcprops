@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/parsers
+END
+MessageGroup.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/parsers/MessageGroup.java
+END
+QualityReportHtmlParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/parsers/QualityReportHtmlParser.java
+END
+ComplianceReportHtmlParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/parsers/ComplianceReportHtmlParser.java
+END
+ReportHtmlParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/parsers/ReportHtmlParser.java
+END
