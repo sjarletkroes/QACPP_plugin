@@ -70,7 +70,7 @@ public class LinesCodeGraph extends PRQAGraph {
         Number max = null;
         super.setData(data);
         try {
-            /* If the minimum number of lines of code is lower than 5000 we set
+            /* If the minimum number of lines of code is lower than 500 we set
             the minimum of the graph at 0 */
             if(data.getMin(StatusCategory.TotalNumberOfFiles).intValue()-500 < 0) {
                 min = 0;

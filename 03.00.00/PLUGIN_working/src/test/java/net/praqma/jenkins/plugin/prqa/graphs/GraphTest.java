@@ -46,9 +46,6 @@ public class GraphTest extends TestCase {
         
         System.out.println("Test min values");
         
-        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.FileCompliance),Integer.valueOf(80));
-        assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.ProjectCompliance),Integer.valueOf(80));
-        
         assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.ClassesBadPoor), null);
         assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.FilesBadPoor), null);
         assertEquals(cGraphs.getData().getOverriddenMin(StatusCategory.FunctionsBadPoor), null);

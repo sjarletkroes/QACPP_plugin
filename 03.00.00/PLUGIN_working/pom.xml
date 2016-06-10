@@ -8,10 +8,10 @@
     </parent>
 
     <groupId>com.trixell</groupId>
-    <artifactId>plugin_working</artifactId>
+    <artifactId>QACPP_Plugin</artifactId>
     <version>03.00.00</version>
     <packaging>hpi</packaging>
-    <name>PLUGIN_Working</name>
+    <name>QACPP_Plugin</name>
     <description>Integrates PRQA static analysis with Jenkins</description>
     <url>https://wiki.jenkins-ci.org/display/JENKINS/QACPP+Plugin</url>
     <properties>

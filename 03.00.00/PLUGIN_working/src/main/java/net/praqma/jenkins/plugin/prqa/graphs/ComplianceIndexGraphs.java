@@ -22,11 +22,35 @@ public class ComplianceIndexGraphs extends PRQAGraph {
 
     @Override
     public void setData(PRQAStatusCollection data) {
-        this.data = data;
+        Number minF = null;
+        Number minP = null;
+        super.setData(data);
+        try {
+            /* If the minimum file compliance is lower than 2 we set
+            the minimum of the graph at 0 */
+            if(data.getMin(StatusCategory.FileCompliance).intValue()-2 < 0) {
+                minF = 0; 
+            /* Otherwise we set the minimum of the graph at 2 less than the
+            minimum */     
+            } else {
+                minF = (data.getMin(StatusCategory.FileCompliance).intValue()-2);
+            }
+            /* If the minimum project compliance is lower than 2 we set
+            the minimum of the graph at 0 */
+            if(data.getMin(StatusCategory.ProjectCompliance).intValue()-2 < 0) {
+                minP = 0; 
+            /* Otherwise we set the minimum of the graph at 2 less than the
+            minimum */       
+            } else {
+                minP = (data.getMin(StatusCategory.ProjectCompliance).intValue()-2);
+            }
+            
+        } catch (PrqaException iex) {
+        }
         this.data.overrideMax(StatusCategory.FileCompliance, 100);
-        this.data.overrideMin(StatusCategory.FileCompliance, 80);
+        this.data.overrideMin(StatusCategory.FileCompliance, minF);
         this.data.overrideMax(StatusCategory.ProjectCompliance, 100);
-        this.data.overrideMin(StatusCategory.ProjectCompliance, 80);
+        this.data.overrideMin(StatusCategory.ProjectCompliance, minP);
     }
 
     @Override
