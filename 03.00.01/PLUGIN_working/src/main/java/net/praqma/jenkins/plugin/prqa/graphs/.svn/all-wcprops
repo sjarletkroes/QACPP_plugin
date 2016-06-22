@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs
+END
+PRQAGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/ELEC/HOST_SOFTWARE/!svn/ver/2129/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs/PRQAGraph.java
+END
+ComplianceIndexGraphs.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/ELEC/HOST_SOFTWARE/!svn/ver/2141/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs/ComplianceIndexGraphs.java
+END
+LinesCodeGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/ELEC/HOST_SOFTWARE/!svn/ver/2141/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs/LinesCodeGraph.java
+END
+MessagesGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs/MessagesGraph.java
+END
+QualityGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/graphs/QualityGraph.java
+END

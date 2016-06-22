@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier
+END
+ThresholdSelectionDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/ThresholdSelectionDescriptor.java
+END
+PRQAReportPRQAToolSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAReportPRQAToolSource.java
+END
+PRQANotifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQANotifier.java
+END
+PRQAReportProjectFileSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAReportProjectFileSource.java
+END
+ValidateTresholdTuple.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/ValidateTresholdTuple.java
+END
+PRQAFileProjectSourceDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAFileProjectSourceDescriptor.java
+END
+PRQAFileProjectSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAFileProjectSource.java
+END
+PRQAReportFileListSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAReportFileListSource.java
+END
+PRQAReportSourceDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAReportSourceDescriptor.java
+END
+PRQABuildAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQABuildAction.java
+END
+ReportFileFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/ELEC/HOST_SOFTWARE/!svn/ver/2133/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/ReportFileFilter.java
+END
+PostBuildActionSetup.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PostBuildActionSetup.java
+END
+QAFrameworkPostBuildActionSetup.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/QAFrameworkPostBuildActionSetup.java
+END
+PRQAFrameworkPostBuildActionSetup.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/ELEC/HOST_SOFTWARE/!svn/ver/2131/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAFrameworkPostBuildActionSetup.java
+END
+PRQAProjectAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/ELEC/HOST_SOFTWARE/!svn/ver/2127/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/java/net/praqma/jenkins/plugin/prqa/notifier/PRQAProjectAction.java
+END
