@@ -1,0 +1,33 @@
+K 26
+svn:wc:ra_dav:activity-url
+V 29
+/ELEC/HOST_SOFTWARE/!svn/act/
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working
+END
+prqaCheckstyle.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/prqaCheckstyle.xml
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/.gitignore
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/ELEC/HOST_SOFTWARE/!svn/ver/2132/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/pom.xml
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/README.txt
+END

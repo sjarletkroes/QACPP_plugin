@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products
+END
+QACli.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/ELEC/HOST_SOFTWARE/!svn/ver/2130/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QACli.java
+END
+Product.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/Product.java
+END
+QAW.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QAW.java
+END
+QAV.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QAV.java
+END
+QAC.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QAC.java
+END
+QACpp.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QACpp.java
+END
+QAR.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/ELEC/HOST_SOFTWARE/!svn/ver/2126/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/QAR.java
+END
+PRQACommandBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/ELEC/HOST_SOFTWARE/!svn/ver/2107/JENKINS_PLUGIN/PRQA_PLUGIN/API/API_working/src/main/java/net/praqma/prqa/products/PRQACommandBuilder.java
+END
