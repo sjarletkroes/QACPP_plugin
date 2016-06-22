@@ -66,6 +66,20 @@ public abstract class ReportHtmlParser implements Serializable {
     }
 
     /**
+     * Returns the first result found for the pattern. null if not found
+     *
+     * @param pattern
+     * @return String
+     * @throws PrqaException
+     */
+    public String getResult(String fullReportPath, Pattern pattern) throws PrqaException {
+        logger.finest(String.format("Starting execution of method - getResult"));
+        String output = getFirstResult(parse(fullReportPath, pattern));
+        logger.finest(String.format("Returning value: %s", output));
+        return output;
+    }
+
+    /**
      * Parse method. Takes a path to a file, and a pattern for which to scan for
      *
      * @param path
@@ -143,6 +157,45 @@ public abstract class ReportHtmlParser implements Serializable {
 
         logger.finest(String.format("File read successfully!"));
         
+        logger.finest(String.format("Returning result:"));
+        for (String s : result) {
+            logger.finest(String.format("    %s", s));
+            System.out.println("result: " + s);
+        }
+
+        return result;
+    }
+
+    /**
+     * Parse method. Takes a String, and a pattern for which to scan for
+     *
+     * @param str to analyse
+     * @param pattern to apply
+     * @return List<String> of matches found
+     */
+    public List<String> parseString(String str, Pattern pattern) {
+        logger.finest(String.format("Starting execution of method - parseString"));
+
+        List<String> result = new ArrayList<String>();
+        Matcher match = null;
+        
+        logger.finest(String.format("Attempting to read the String..."));
+        match = pattern.matcher(str);
+
+        while (match.find()) {
+            logger.finest(String.format("Match found!"));
+
+            result.add(match.group(1));
+
+            logger.finest(String.format("Returning result:"));
+            for (String s : result) {
+                logger.finest(String.format("    %s", s));
+            }
+
+            return result;
+        }
+        
+        logger.finest(String.format("File read successfully!"));
         logger.finest(String.format("Returning result:"));
         for (String s : result) {
             logger.finest(String.format("    %s", s));

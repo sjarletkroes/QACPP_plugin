@@ -19,6 +19,8 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
 
     private int messages;
     private int messagesWithinThreshold = -1;
+    private int numberOfFiles;
+    private int linesOfCode;
     private Double fileCompliance;
     private Double projectCompliance;
     private HashMap<Integer, Integer> messagesByLevel = new HashMap<Integer, Integer>();
@@ -30,18 +32,48 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         }
     }
 
-    public PRQAComplianceStatus(int messages, Double fileCompliance, Double projectCompliance) {
+    public PRQAComplianceStatus(int numberOfFiles, int linesOfCode, int messages, Double fileCompliance, Double projectCompliance) {
         this();
         logger.finest(String.format("Constructor called for class PRQAComplianceStatus"));
+        logger.finest(String.format("Input parameter numberOfFiles type: int; value: %s", numberOfFiles));
+        logger.finest(String.format("Input parameter linesOfCode type: int; value: %s", linesOfCode));
         logger.finest(String.format("Input parameter messages type: %s; value: %s", "int", messages));
         logger.finest(String.format("Input parameter fileCompliance type: %s; value: %s", fileCompliance.getClass(), fileCompliance));
         logger.finest(String.format("Input parameter projectCompliance type: %s; value: %s", projectCompliance.getClass(), projectCompliance));
 
         this.messages = messages;
+        this.numberOfFiles = numberOfFiles;
+        this.linesOfCode = linesOfCode;
         this.fileCompliance = fileCompliance;
         this.projectCompliance = projectCompliance;
 
         logger.finest(String.format("Ending execution of constructor - PRQAComplianceStatus"));
+    }
+
+    public int getLinesOfCode() {
+        logger.finest(String.format("Starting execution of method - getLinesOfCode"));
+        logger.finest(String.format("Returning value: %s", linesOfCode));
+        return linesOfCode;
+    }
+
+    public void setLinesOfCode(int linesOfCode) {
+        logger.finest(String.format("Starting execution of method - setLinesOfCode"));
+        logger.finest(String.format("Input parameter linesOfCode type: int; value: %s", linesOfCode));
+        this.linesOfCode = linesOfCode;
+        logger.finest(String.format("Ending execution of method - setLinesOfCode"));
+    }
+
+    public int getNumberOfFiles() {
+        logger.finest(String.format("Starting execution of method - getNumberOfFiles"));
+        logger.finest(String.format("Returning value: %s", numberOfFiles));
+        return numberOfFiles;
+    }
+
+    public void setNumberOfFiles(int numberOfFiles) {
+        logger.finest(String.format("Starting execution of method - setNumberOfFiles"));
+        logger.finest(String.format("Input parameter files type: int; value: %s", numberOfFiles));
+        this.numberOfFiles = numberOfFiles;
+        logger.finest(String.format("Ending execution of method - setNumberOfFiles"));
     }
 
     public void setQaFrameworkVersion(QaFrameworkVersion qaFrameworkVersion) {
@@ -129,6 +161,14 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
 
         Number output;
         switch (cat) {
+            case TotalNumberOfFiles:
+                output = this.getNumberOfFiles();
+                logger.finest(String.format("Returning value: %s", output));
+                return output;
+            case LinesOfCode:
+                output = this.getLinesOfCode();
+                logger.finest(String.format("Returning value: %s", output));
+                return output;
             case ProjectCompliance:
                 output = this.getProjectCompliance();
                 logger.finest(String.format("Returning value: %s", output));
@@ -161,6 +201,18 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
         logger.finest(String.format("Input parameter value type: %s; value: %s", value.getClass(), value));
 
         switch (category) {
+            case TotalNumberOfFiles:
+                int nbFiles = value.intValue();
+                logger.finest(String.format("Setting NumberOfFiles to: %s.", nbFiles));
+                this.setNumberOfFiles(nbFiles);
+                logger.finest(String.format("Ending execution of method - setReadout"));
+                break;
+            case LinesOfCode:
+                int nbLinesOfCode = value.intValue();
+                logger.finest(String.format("Setting LinesOfCode to: %s.", nbLinesOfCode));
+                this.setLinesOfCode(nbLinesOfCode);
+                logger.finest(String.format("Ending execution of method - setReadout"));
+                break;
             case ProjectCompliance:
                 double prjCompliance = value.doubleValue();
                 logger.finest(String.format("Setting projectCompliance to: %s.", prjCompliance));
@@ -194,7 +246,8 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
      */
     @Override
     public String toString() {
-        String out = "\n";
+        String out = "\n";out += "\nTotal Number of Files : " + numberOfFiles + System.getProperty("line.separator");
+        out += "Lines of Code : " + linesOfCode + System.getProperty("line.separator");
         out += "Project Compliance Index : " + projectCompliance + "%" + System.getProperty("line.separator");
         out += "File Compliance Index : " + fileCompliance + "%" + System.getProperty("line.separator");
         out += "Messages : " + messages + System.getProperty("line.separator");
@@ -256,9 +309,38 @@ public class PRQAComplianceStatus extends PRQAStatus implements Comparable<PRQAC
 
     public static PRQAComplianceStatus createEmptyResult() {
         logger.finest(String.format("Starting execution of method - createEmptyResult"));
-        PRQAComplianceStatus output = new PRQAComplianceStatus(0, new Double(0), new Double(0));
+        PRQAComplianceStatus output = new PRQAComplianceStatus(0, 0, 0, new Double(0), new Double(0));
         logger.finest(String.format("Returning value: %s", output));
         return output;
+    }
+    
+    /**
+     * Returns the html table containing the project's general data. (number of
+     * files, lines of code, functions, classes)
+     *
+     * @return String
+     */
+    public String generalToHtml() {
+        return generalToHtml(-1, -1);
+    }
+    public String generalToHtml(int numberOfFunctions, int numberOfClasses) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table class=\"pane\" style=\"margin-top: 0px;\">");
+        sb.append("<tr style=\"border: 1px solid #BBB\">");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Total Number of Files</th>");
+        sb.append(String.format("<td>%s</td>", this.getNumberOfFiles()));
+        sb.append("<tr style=\"border: 1px solid #BBB\">");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Lines of Code</th>");
+        sb.append(String.format("<td>%s</td>", this.getLinesOfCode()));
+        sb.append("<tr style=\"border: 1px solid #BBB\">");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Number of Functions</th>");
+        sb.append(String.format("<td>%s</td>", (numberOfFunctions == -1 ? "unknown" : numberOfFunctions)));
+        sb.append("<tr style=\"border: 1px solid #BBB\">");
+        sb.append("<th style=\"background-color: #F0F0F0; border: 1px solid #BBB\" align=\"left\">Number of Classes</th>");
+        sb.append(String.format("<td>%s</td>", (numberOfClasses == -1 ? "unknown" : numberOfClasses)));
+        sb.append("</tr>");
+        sb.append("</table>");
+        return sb.toString();
     }
 
     /**

@@ -40,7 +40,6 @@ public class QACli implements Product {
     public static final String QAF_BIN_PATH = "QAFBINPATH";
     public static final String WORKSPACE_PATH = "WORKSPACEPATH";
     public static final String QAF_INSTALL_PATH = "QAFINSTALLPATH";
-    public static String PRQAF_INSTALL_PATH;
 
     public QACli() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

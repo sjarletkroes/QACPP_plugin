@@ -310,19 +310,48 @@ public class PRQAReport implements Serializable {
     }
 
     private PRQAComplianceStatus getCompliance(PRQAComplianceStatus status, ComplianceReportHtmlParser parser) throws PrqaException {
+        int numberOfFiles = Integer.parseInt(parser.getResult(ComplianceReportHtmlParser.numberFilesPattern));
+        int linesOfCode = Integer.parseInt(parser.getResult(ComplianceReportHtmlParser.numberLinesOfCodePattern));
         Double fileCompliance = Double.parseDouble(parser.getResult(ComplianceReportHtmlParser.fileCompliancePattern));
         Double projectCompliance = Double.parseDouble(parser.getResult(ComplianceReportHtmlParser.projectCompliancePattern));
         int messages = Integer.parseInt(parser.getResult(ComplianceReportHtmlParser.totalMessagesPattern));
 
-        for (int i = 0; i < 10; i++) {
-            try {
-                int result = Integer.parseInt(parser.getResult(ComplianceReportHtmlParser.levelNMessages[i]));
+        // Get the file name for the file containing the messages
+        String messagesFile;   
+        try {
+            messagesFile = parser.getResult(ComplianceReportHtmlParser.messagesFilePattern);
+        } catch (Exception ex) {
+            messagesFile = null;
+        }
+        
+        // Get the number of messages for each level
+        int result;
+        if (messagesFile != null) {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    result = Integer.parseInt(parser.getResult(getWorkspace().getPath() 
+                            + System.getProperty("file.separator") + "Compliance Report-" 
+                            + messagesFile + ".xhtml", ComplianceReportHtmlParser.levelNMessages[i]));
+                } catch (NumberFormatException nfe) {
+                    result = 0;
+                }
                 status.getMessagesByLevel().put(i, result);
-            } catch (NumberFormatException nfe) {
-                status.getMessagesByLevel().put(i, 0);
             }
         }
+//        else {
+//            for (int i = 0; i < 10; i++) {
+//                try {
+//                    result = Integer.parseInt(parser.getResult(
+//                            ComplianceReportHtmlParser.levelNMessages[i]));
+//                } catch (NumberFormatException nfe) {
+//                    result = 0;
+//                }
+//                status.getMessagesByLevel().put(i, result);
+//            }
+//        }
 
+        status.setNumberOfFiles(numberOfFiles);
+        status.setLinesOfCode(linesOfCode);
         status.setFileCompliance(fileCompliance);
         status.setProjectCompliance(projectCompliance);
         status.setMessages(messages);
@@ -337,42 +366,93 @@ public class PRQAReport implements Serializable {
         status = (PRQAQualityStatus) getCompliance(status, parserCompliance);
 
         QualityReportHtmlParser parser = new QualityReportHtmlParser(getWorkspace().getPath() + System.getProperty("file.separator") + "Quality Report.xhtml");
-        int numberOfFiles = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberFilesPattern));
-        int linesOfCode = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberLinesOfCodePattern));
         int functions = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFunctionsPattern));
         int classes = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfClassesPattern));
-        int functionMetrics = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFunctionMetricsPattern));
-        int classMetrics = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfClassMetricsPattern));
-        int fileMetrics = Integer.parseInt(parser.getResult(QualityReportHtmlParser.numberOfFileMetricsPattern));
 
-        for (int i = 0; i < 5; i++) {
-            try {
-                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.fileDetails[i]));
+        // Get the file names for the files containing the details
+        String fileDetailsFile;
+        String classDetailsFile;
+        String functionDetailsFile;
+            
+        try {
+            fileDetailsFile = parser.getResult(QualityReportHtmlParser.fileDetailsFilePattern);
+        } catch (Exception ex) {
+            fileDetailsFile = null;
+        }
+        try {
+            classDetailsFile = parser.getResult(QualityReportHtmlParser.classDetailsFilePattern);
+        } catch (Exception ex) {
+            classDetailsFile = null;
+        }
+        try {
+            functionDetailsFile = parser.getResult(QualityReportHtmlParser.functionDetailsFilePattern);
+        } catch (Exception ex) {
+            functionDetailsFile = null;
+        }
+        
+        int result;
+        if(fileDetailsFile != null) {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    result = Integer.parseInt(parser.getResult(getWorkspace().getPath() 
+                            + System.getProperty("file.separator") + "Quality Report-" 
+                            + fileDetailsFile + ".xhtml", QualityReportHtmlParser.fileDetails[i]));
+                } catch (Exception nfe) {
+                    result = 0;
+                }
                 status.getFileDetails().put(i, result);
-            } catch (NumberFormatException nfe) {
-                status.getFileDetails().put(i, 0);
-            }
-            try {
-                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.classDetails[i]));
-                status.getClassDetails().put(i, result);
-            } catch (NumberFormatException nfe) {
-                status.getClassDetails().put(i, 0);
-            }
-            try {
-                int result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.functionDetails[i]));
-                status.getFunctionDetails().put(i, result);
-            } catch (NumberFormatException nfe) {
-                status.getFunctionDetails().put(i, 0);
             }
         }
+            
+        if(classDetailsFile != null) {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    result = Integer.parseInt(parser.getResult(getWorkspace().getPath() 
+                            + System.getProperty("file.separator") + "Quality Report-" 
+                            + classDetailsFile + ".xhtml", QualityReportHtmlParser.classDetails[i]));
+                } catch (Exception nfe) {
+                    result = 0;
+                }
+                status.getClassDetails().put(i, result);
+            }
+        }
+            
+        if(functionDetailsFile != null) {
+            for (int i = 0; i < 5; i++) {
+                try {
+                    result = Integer.parseInt(parser.getResult(getWorkspace().getPath() 
+                            + System.getProperty("file.separator") + "Quality Report-" 
+                            + functionDetailsFile + ".xhtml", QualityReportHtmlParser.functionDetails[i]));
+                } catch (Exception nfe) {
+                    result = 0;
+                }
+                status.getFunctionDetails().put(i, result);
+            }
+        }
+        
+//        for (int i = 0; i < 5; i++) {
+//            try {
+//                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.fileDetails[i]));
+//            } catch (NumberFormatException nfe) {
+//                result = 0;
+//            }
+//            status.getFileDetails().put(i, result);
+//            try {
+//                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.classDetails[i]));
+//            } catch (NumberFormatException nfe) {
+//                result = 0;
+//            }
+//            status.getClassDetails().put(i, result);
+//            try {
+//                result = Integer.parseInt(parser.getResult(QualityReportHtmlParser.functionDetails[i]));
+//            } catch (NumberFormatException nfe) {
+//                result = 0;
+//            }
+//            status.getFunctionDetails().put(i, result);
+//        }
 
-        status.setNumberOfFiles(numberOfFiles);
-        status.setLinesOfCode(linesOfCode);
         status.setNumberOfFunctions(functions);
         status.setNumberOfClasses(classes);
-        status.setNumberOfFunctionMetrics(functionMetrics);
-        status.setNumberOfClassMetrics(classMetrics);
-        status.setNumberOfFileMetrics(fileMetrics);
 
         return status;
     }
