@@ -44,7 +44,6 @@ import net.praqma.jenkins.plugin.prqa.graphs.PRQAGraph;
 import net.praqma.jenkins.plugin.prqa.setup.PRQAToolSuite;
 import net.praqma.jenkins.plugin.prqa.setup.QACToolSuite;
 import net.praqma.jenkins.plugin.prqa.setup.QAFrameworkInstallationConfiguration;
-import net.praqma.jenkins.plugin.prqa.setup.PRQAFrameworkInstallationConfiguration;
 import net.praqma.jenkins.plugin.prqa.threshold.AbstractThreshold;
 import net.praqma.jenkins.plugin.prqa.threshold.FileComplianceThreshold;
 import net.praqma.jenkins.plugin.prqa.threshold.MessageComplianceThreshold;
@@ -89,8 +88,6 @@ import static javafx.scene.input.KeyCode.T;
 import static javafx.scene.input.KeyCode.V;
 import net.praqma.jenkins.plugin.prqa.graphs.LinesCodeGraph;
 import net.praqma.jenkins.plugin.prqa.graphs.QualityGraph;
-import net.praqma.prqa.PRQaFrameworkVersion;
-import net.praqma.prqa.reportsettings.PRQaFrameworkReportSettings;
 import net.praqma.prqa.reportsettings.QaFrameworkReportSettings;
 
 //TODO: I intend to REMOVE all the deprecated fields in the realease for the new PRQA API
@@ -851,12 +848,6 @@ public class PRQANotifier extends Publisher {
             return Arrays.asList(prqaInstallations);
         }
 
-        public List<PRQAFrameworkInstallationConfiguration> getPRQaFrameworkTools() {
-            PRQAFrameworkInstallationConfiguration[] prqaInstallations = Hudson.getInstance()
-                    .getDescriptorByType(PRQAFrameworkInstallationConfiguration.DescriptorImpl.class).getInstallations();
-            return Arrays.asList(prqaInstallations);
-        }
-
         public List<PRQAReportSourceDescriptor<?>> getReportSources() {
             return PostBuildActionSetup.getDescriptors();
         }
@@ -1000,12 +991,6 @@ public class PRQANotifier extends Publisher {
         }
         throw new PrqaSetupException("Please set a project in Qa Framework section configuration!");
     }
-    
-    private PRQaFrameworkReportSettings setPRQaFrameworkReportSettings(
-            PRQAFrameworkPostBuildActionSetup prqaFrameworkPostBuildActionSetup, AbstractBuild<?, ?> build)
-            throws PrqaSetupException {   
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     private QAVerifyServerSettings setQaVerifyServerSettings(String configurationByName) {
 
@@ -1068,22 +1053,6 @@ outStream.println("____________________________________test 13__________________
             outStream.println(String.format(
                     "Your QA·CLI version is %s.In order to use our product install a newer version of QA·Framework!",
                     qaFrameworkVersion.getQaFrameworkVersion()));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isPRQafVersionSupported(PRQaFrameworkVersion prqaFrameworkVersion) {
-
-        if (prqaFrameworkVersion == null) {
-            return false;
-        }
-        outStream.println("QA CLI is a tool for Source Code Analysis Framework.");
-        outStream.println("Version: " + prqaFrameworkVersion.getPRQaFrameworkVersion());
-        if (!prqaFrameworkVersion.isPRQAFVersionSupported()) {
-            outStream.println(String.format(
-                    "Your QA·CLI version is %s.In order to use our product install a newer version of QA·Framework!",
-                    prqaFrameworkVersion.getPRQaFrameworkVersion()));
             return false;
         }
         return true;

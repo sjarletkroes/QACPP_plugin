@@ -37,6 +37,7 @@ import net.praqma.prqa.PRQAContext.QARReportType;
 import net.praqma.prqa.reportsettings.PRQAReportSettings;
 import net.praqma.prqa.reports.PRQAReport;
 import net.praqma.prqa.status.PRQAComplianceStatus;
+import net.praqma.prqa.status.PRQAQualityStatus;
 import net.praqma.util.execute.CmdResult;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.remoting.RoleChecker;
@@ -153,10 +154,24 @@ public class PRQARemoteReport implements FileCallable<PRQAComplianceStatus>{
             if (report.getSettings().chosenReportTypes.contains(QARReportType.Quality)) {
 listener.getLogger().println("\n\n############################ Quality & Compliance ############################"
         + "\n" + report.getSettings().chosenReportTypes.toString() + "\n");
-                return report.getQualityStatus();
+                
+                long time = System.currentTimeMillis();
+                PRQAQualityStatus s = report.getQualityStatus();
+                listener.getLogger().println("=======================================================\n"
+                        + "time compliance & quality " + (System.currentTimeMillis()-time)
+                        + "\n=======================================================");
+                return s;
+                
             } else {
 listener.getLogger().println("\n\n################################ Compliance ##################################\n");
-                return report.getComplianceStatus();
+
+                long time = System.currentTimeMillis();
+                PRQAComplianceStatus s = report.getComplianceStatus();
+                listener.getLogger().println("=======================================================\n"
+                        + "time compliance " + (System.currentTimeMillis()-time)
+                        + "\n=======================================================");
+                return s;
+                
             }
         } catch (PrqaException exception) {
             throw new IOException(exception.getMessage(), exception);

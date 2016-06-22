@@ -1,86 +1,0 @@
-10
-
-dir
-2121
-http://trixontime01:81/ELEC/HOST_SOFTWARE/JENKINS_PLUGIN/PRQA_PLUGIN/PLUGIN/PLUGIN_working/src/main/resources/net/praqma/jenkins/plugin/prqa/notifier
-http://trixontime01:81/ELEC/HOST_SOFTWARE
-
-
-
-2016-04-22T13:12:03.664498Z
-2107
-t0107173
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-454be9b7-f986-40d6-92fe-203e7d3e0fda
-
-Messages.properties
-file
-
-
-
-
-2016-05-17T09:22:02.299861Z
-9e66101154ffddc3aceaaa75a4e1d772
-2016-04-22T13:12:03.664498Z
-2107
-t0107173
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4388
-
-PRQABuildAction
-dir
-
-PRQAFrameworkPostBuildActionSetup
-dir
-
-PRQANotifier
-dir
-
-PRQAProjectAction
-dir
-
-PRQAReportFileListSource
-dir
-
-PRQAReportPRQAToolSource
-dir
-
-PRQAReportProjectFileSource
-dir
-
-QAFrameworkPostBuildActionSetup
-dir
-
